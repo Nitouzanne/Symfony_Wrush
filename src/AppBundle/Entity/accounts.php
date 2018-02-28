@@ -42,6 +42,17 @@ class accounts
      */
     private $pseudo;
 
+    /**
+     * @ORM\OneToOne(targetEntity="User", inversedBy="accounts")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
+     */
+    private $User;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Game", inversedBy="accounts")
+     * @ORM\JoinColumn(name="gameId", referencedColumnName="id")
+     */
+    private $Game;
 
     /**
      * Get id

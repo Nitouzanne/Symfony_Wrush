@@ -35,6 +35,11 @@ class Game
      */
     private $name;
 
+    /**
+     * @ORM\OneToOne(targetEntity="accounts",mappedBy="Game")
+     */
+    private $accounts;
+
 
     /**
      * Get id

@@ -49,7 +49,6 @@ class Summoner
      */
     private $level;
 
-
     /**
      * Get id
      *

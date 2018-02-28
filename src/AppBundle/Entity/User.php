@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ *
+ * @ApiResource
  */
 class User
 {
@@ -49,6 +52,10 @@ class User
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity="accounts",mappedBy="User")
+     */
+    private $accounts;
 
     /**
      * Get id
