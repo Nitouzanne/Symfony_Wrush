@@ -17,6 +17,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
 use ApiPlatform\Core\Tests\Fixtures\TestBundle\Entity\Dummy;
 use ApiPlatform\Core\Tests\Fixtures\TestBundle\Entity\DummyDate;
+use ApiPlatform\Core\Tests\Fixtures\TestBundle\Entity\DummyImmutableDate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -31,6 +32,7 @@ class DateFilterTest extends AbstractFilterTest
     public function testApplyDate()
     {
         $this->doTestApplyDate(false);
+        $this->doTestApplyDateImmutable(false);
     }
 
     /**
@@ -39,6 +41,7 @@ class DateFilterTest extends AbstractFilterTest
     public function testRequestApplyDate()
     {
         $this->doTestApplyDate(true);
+        $this->doTestApplyDateImmutable(true);
     }
 
     private function doTestApplyDate(bool $request)
@@ -57,6 +60,26 @@ class DateFilterTest extends AbstractFilterTest
         $filter->apply($queryBuilder, new QueryNameGenerator(), DummyDate::class, null, $request ? [] : ['filters' => $filters]);
 
         $this->assertEquals(new \DateTime('2015-04-05'), $queryBuilder->getParameters()[0]->getValue());
+        $this->assertInstanceOf(\DateTime::class, $queryBuilder->getParameters()[0]->getValue());
+    }
+
+    private function doTestApplyDateImmutable(bool $request)
+    {
+        $filters = ['dummyDate' => ['after' => '2015-04-05']];
+
+        $requestStack = null;
+        if ($request) {
+            $requestStack = new RequestStack();
+            $requestStack->push(Request::create('/api/dummy_immutable_date', 'GET', $filters));
+        }
+
+        $queryBuilder = $this->repository->createQueryBuilder('o');
+
+        $filter = new DateFilter($this->managerRegistry, $requestStack, null, ['dummyDate' => null]);
+        $filter->apply($queryBuilder, new QueryNameGenerator(), DummyImmutableDate::class, null, $request ? [] : ['filters' => $filters]);
+
+        $this->assertEquals(new \DateTimeImmutable('2015-04-05'), $queryBuilder->getParameters()[0]->getValue());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $queryBuilder->getParameters()[0]->getValue());
     }
 
     public function testGetDescription()

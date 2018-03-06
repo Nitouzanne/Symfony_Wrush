@@ -19,7 +19,12 @@ user_create:
   path: /user
   controller: AppBundle\Controller\UserController::createUser
   methods: [POST]
+user_login:
+  path: /user/login
+  controller: AppBundle\Controller\UserController::loginUser
+  methods: [POST]
 user_update:
   path: /user/{userId}
   controller: AppBundle\Controller\UserController::updateUser
   methods: [POST]
+
