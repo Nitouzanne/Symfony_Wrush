@@ -29,11 +29,11 @@ class SummonerInMatch
     private $matchId;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="champion", type="string", length=255)
+     * @ORM\Column(name="championId", type="integer")
      */
-    private $champion;
+    private $championId;
 
     /**
      * @var string
@@ -43,11 +43,21 @@ class SummonerInMatch
     private $lane;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="participants", type="string", length=255)
+     * @ORM\Column(name="participantId", type="integer")
      */
-    private $participants;
+    private $participantId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="matchSummoner",mappedBy="SummonerInMatch")
+     */
+    protected $matchSummoner;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Champion", mappedBy="SummonerInMatch")
+     */
+    protected $champion;
 
 
     /**
@@ -85,27 +95,27 @@ class SummonerInMatch
     }
 
     /**
-     * Set champion
+     * Set championId
      *
-     * @param string $champion
+     * @param integer $championId
      *
      * @return SummonerInMatch
      */
-    public function setChampion($champion)
+    public function setChampionId($championId)
     {
-        $this->champion = $champion;
+        $this->championId = $championId;
 
         return $this;
     }
 
     /**
-     * Get champion
+     * Get championId
      *
-     * @return string
+     * @return integer
      */
-    public function getChampion()
+    public function getChampionId()
     {
-        return $this->champion;
+        return $this->championId;
     }
 
     /**
@@ -133,27 +143,27 @@ class SummonerInMatch
     }
 
     /**
-     * Set participants
+     * Set participantId
      *
-     * @param string $participants
+     * @param integer $participantId
      *
      * @return SummonerInMatch
      */
-    public function setParticipants($participants)
+    public function setParticipantId($participantId)
     {
-        $this->participants = $participants;
+        $this->participantId = $participantId;
 
         return $this;
     }
 
     /**
-     * Get participants
+     * Get participantId
      *
-     * @return string
+     * @return integer
      */
-    public function getParticipants()
+    public function getParticipantId()
     {
-        return $this->participants;
+        return $this->participantId;
     }
 }
 

@@ -24,14 +24,14 @@ class Summoner
     /**
      * @var string
      *
-     * @ORM\Column(name="Pseudo", type="string", length=255)
+     * @ORM\Column(name="summonerName", type="string", length=255)
      */
-    private $pseudo;
+    private $summonerName;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="AccountId", type="string", length=255)
+     * @ORM\Column(name="AccountId", type="integer")
      */
     private $accountId;
 
@@ -50,6 +50,23 @@ class Summoner
     private $level;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="leaguePoints", type="integer")
+     */
+    private $leaguePoints;
+
+    /**
+     * @ORM\OneToOne(targetEntity="accounts", mappedBy="Summoner")
+     */
+    protected $accounts;
+
+    /**
+     * @ORM\OneToOne(targetEntity="MatchSummoner", mappedBy="Summoner")
+     */
+    protected $matchSummoner;
+
+    /**
      * Get id
      *
      * @return int
@@ -60,33 +77,33 @@ class Summoner
     }
 
     /**
-     * Set pseudo
+     * Set summonerName
      *
      * @param string $pseudo
      *
      * @return Summoner
      */
-    public function setPseudo($pseudo)
+    public function setSummonerName($summonerName)
     {
-        $this->pseudo = $pseudo;
+        $this->summonerName= $summonerName;
 
         return $this;
     }
 
     /**
-     * Get pseudo
+     * Get summonerName
      *
      * @return string
      */
-    public function getPseudo()
+    public function getSummonerName()
     {
-        return $this->pseudo;
+        return $this->summonerName;
     }
 
     /**
      * Set accountId
      *
-     * @param string $accountId
+     * @param integer $accountId
      *
      * @return Summoner
      */
@@ -100,7 +117,7 @@ class Summoner
     /**
      * Get accountId
      *
-     * @return string
+     * @return integer
      */
     public function getAccountId()
     {
@@ -153,6 +170,30 @@ class Summoner
     public function getLevel()
     {
         return $this->level;
+    }
+
+    /**
+     * Set leaguePoints
+     *
+     * @param integer $leaguePoints
+     *
+     * @return Summoner
+     */
+    public function setLeaguePoints($leaguePoints)
+    {
+        $this->leaguePoints = $leaguePoints;
+
+        return $this;
+    }
+
+    /**
+     * Get leaguePoints
+     *
+     * @return int
+     */
+    public function getLeaguePoints()
+    {
+        return $this->leaguePoints;
     }
 }
 

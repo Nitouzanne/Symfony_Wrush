@@ -44,6 +44,10 @@ class ComposerStaticInit26595d9076684d097dd7ae2fb5561396
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
             'Sensio\\Bundle\\DistributionBundle\\' => 33,
         ),
+        'R' => 
+        array (
+            'RiotAPI\\' => 8,
+        ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
@@ -75,6 +79,7 @@ class ComposerStaticInit26595d9076684d097dd7ae2fb5561396
             'Doctrine\\Common\\' => 16,
             'Doctrine\\Bundle\\DoctrineCacheBundle\\' => 36,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
+            'DataDragonAPI\\' => 14,
         ),
         'C' => 
         array (
@@ -164,6 +169,10 @@ class ComposerStaticInit26595d9076684d097dd7ae2fb5561396
         array (
             0 => __DIR__ . '/..' . '/sensio/distribution-bundle',
         ),
+        'RiotAPI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/RiotAPI',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -219,6 +228,10 @@ class ComposerStaticInit26595d9076684d097dd7ae2fb5561396
         'Doctrine\\Bundle\\DoctrineBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
+        ),
+        'DataDragonAPI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/DataDragonAPI',
         ),
         'Composer\\CaBundle\\' => 
         array (
@@ -276,6 +289,13 @@ class ComposerStaticInit26595d9076684d097dd7ae2fb5561396
                 0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
             ),
         ),
+        'C' => 
+        array (
+            'Curl' => 
+            array (
+                0 => __DIR__ . '/..' . '/curl/curl/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
@@ -288,6 +308,12 @@ class ComposerStaticInit26595d9076684d097dd7ae2fb5561396
         'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/IntlDateFormatter.php',
         'Locale' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Locale.php',
+        'Nette\\SmartObject' => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/DataDragonAPI/Utils/SmartObject.php',
+        'Nette\\StaticClass' => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/DataDragonAPI/Utils/StaticClass.php',
+        'Nette\\Utils\\Callback' => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/DataDragonAPI/Utils/Callback.php',
+        'Nette\\Utils\\Html' => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/DataDragonAPI/Utils/Html.php',
+        'Nette\\Utils\\IHtmlString' => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/DataDragonAPI/Utils/IHtmlString.php',
+        'Nette\\Utils\\ObjectMixin' => __DIR__ . '/..' . '/dolejska-daniel/riot-api/src/DataDragonAPI/Utils/ObjectMixin.php',
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
         'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
         'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',

@@ -38,7 +38,7 @@ class Game
     /**
      * @ORM\OneToOne(targetEntity="accounts",mappedBy="Game")
      */
-    private $accounts;
+    protected $accounts;
 
 
     /**

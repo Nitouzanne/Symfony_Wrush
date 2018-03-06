@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d61df9c6d2f3e1b33401d483b5ff883",
+    "content-hash": "7cb59d7951840ee417f9bf09abb4805d",
     "packages": [
         {
             "name": "api-platform/core",
@@ -178,6 +178,61 @@
                 "tls"
             ],
             "time": "2017-11-29T09:37:33+00:00"
+        },
+        {
+            "name": "curl/curl",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-mod/curl.git",
+                "reference": "16e8489b048ef57ffbf74591a201f7808155b2db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-mod/curl/zipball/16e8489b048ef57ffbf74591a201f7808155b2db",
+                "reference": "16e8489b048ef57ffbf74591a201f7808155b2db",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Curl": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hassan Amouhzi",
+                    "email": "hassan@anezi.net",
+                    "homepage": "http://hassan.amouhzi.com"
+                },
+                {
+                    "name": "php-curl-class",
+                    "homepage": "https://github.com/php-curl-class"
+                },
+                {
+                    "name": "user52",
+                    "homepage": "https://github.com/user52"
+                }
+            ],
+            "description": "cURL class for PHP",
+            "homepage": "https://github.com/php-mod/curl",
+            "keywords": [
+                "curl",
+                "dot"
+            ],
+            "time": "2017-08-12T11:44:08+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -950,6 +1005,61 @@
                 "orm"
             ],
             "time": "2017-12-17T02:57:51+00:00"
+        },
+        {
+            "name": "dolejska-daniel/riot-api",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dolejska-daniel/riot-api.git",
+                "reference": "215e85851660b3c8fe1c1bd8de94ba7fb301a8cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dolejska-daniel/riot-api/zipball/215e85851660b3c8fe1c1bd8de94ba7fb301a8cd",
+                "reference": "215e85851660b3c8fe1c1bd8de94ba7fb301a8cd",
+                "shasum": ""
+            },
+            "require": {
+                "curl/curl": "^1.6.0",
+                "php": "^7.0.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "v0.4.4",
+                "phpunit/phpunit": "6.2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/DataDragonAPI/Utils"
+                ],
+                "psr-4": {
+                    "RiotAPI\\": "src/RiotAPI",
+                    "DataDragonAPI\\": "src/DataDragonAPI"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Dolejška",
+                    "email": "dolejskad@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Riot League of Legends & DataDragon API wrapper for PHP7",
+            "homepage": "https://github.com/dolejska-daniel/riot-api",
+            "keywords": [
+                "PHP7",
+                "Riot",
+                "api",
+                "data dragon",
+                "league of legends",
+                "wrapper"
+            ],
+            "time": "2017-08-06T09:03:42+00:00"
         },
         {
             "name": "fig/link-util",
