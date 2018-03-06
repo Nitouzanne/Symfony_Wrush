@@ -1,0 +1,42 @@
+<?php
+
+namespace AppBundle\Controller;
+
+use AppBundle\Mapper\MapperInterface;
+use RiotAPI\Definitions\Region;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+class DistantApiController extends Controller
+{
+    public function playerData($game, Request $request, MapperInterface $mapper)
+    {
+        // TODO
+        // get dynamic region
+        // get dynamic summoner name
+
+        $pseudo = $request->get('pseudo');
+        $region = $request->get('region', Region::EUROPE_WEST);
+
+        if (null === $pseudo) {
+            throw new NotFoundHttpException();
+        }
+
+        // check if in cache
+        // if yes, return cache.
+
+        $summoner = $mapper->getPlayerData($pseudo, $region);
+
+        // store in cache
+
+        return new JsonResponse([
+            "game" => $game,
+            "level" => $summoner->getLevel(),
+            "pseudo" => $summoner->getPseudo(),
+            "account_id" => $summoner->getAccountId(),
+            "profil_icon_id" => $summoner->getProfilIconId(),
+        ]);
+    }
+}
