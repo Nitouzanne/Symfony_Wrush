@@ -44,15 +44,18 @@ class accounts
 
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="accounts")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
-    private $User;
+    protected $user;
 
     /**
      * @ORM\OneToOne(targetEntity="Game", inversedBy="accounts")
-     * @ORM\JoinColumn(name="gameId", referencedColumnName="id")
      */
-    private $Game;
+    protected $game;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Summoner", inversedBy="accounts")
+     */
+    protected $summoner;
 
     /**
      * Get id

@@ -43,23 +43,23 @@ class MatchSummoner
     private $date;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="matchId", type="string", length=255)
+     * @ORM\Column(name="matchId", type="integer")
      */
     private $matchId;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="participants", type="string", length=255)
+     * @ORM\Column(name="participantId", type="integer")
      */
-    private $participants;
+    private $participantId;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="win", type="boolean")
+     * @ORM\Column(name="win", type="boolean", length=255)
      */
     private $win;
 
@@ -84,6 +84,15 @@ class MatchSummoner
      */
     private $assists;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Summoner", inversedBy="matchSummoner")
+     */
+    protected $Summoner;
+
+    /**
+     * @ORM\OneToOne(targetEntity="SummonerInMatch", inversedBy="matchSummoner")
+     */
+    protected $SummonerInMatch;
 
     /**
      * Get id
@@ -170,7 +179,7 @@ class MatchSummoner
     /**
      * Set matchId
      *
-     * @param string $matchId
+     * @param integer $matchId
      *
      * @return MatchSummoner
      */
@@ -184,7 +193,7 @@ class MatchSummoner
     /**
      * Get matchId
      *
-     * @return string
+     * @return integer
      */
     public function getMatchId()
     {
@@ -192,33 +201,33 @@ class MatchSummoner
     }
 
     /**
-     * Set participants
+     * Set participantId
      *
-     * @param string $participants
+     * @param integer $participantId
      *
      * @return MatchSummoner
      */
-    public function setParticipants($participants)
+    public function setParticipantId($participantId)
     {
-        $this->participants = $participants;
+        $this->participantId = $participantId;
 
         return $this;
     }
 
     /**
-     * Get participants
+     * Get participantId
      *
-     * @return string
+     * @return integer
      */
-    public function getParticipants()
+    public function getParticipantId()
     {
-        return $this->participants;
+        return $this->participantId;
     }
 
     /**
      * Set win
      *
-     * @param boolean $win
+     * @param string $win
      *
      * @return MatchSummoner
      */
@@ -232,7 +241,7 @@ class MatchSummoner
     /**
      * Get win
      *
-     * @return bool
+     * @return string
      */
     public function getWin()
     {

@@ -29,12 +29,16 @@ class Champion
     private $name;
 
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(name="championId", type="integer")
+     * @ORM\Column(name="championId", type="integer" )
      */
     private $championId;
 
+    /**
+     * @ORM\OneToOne(targetEntity="SummonerInMatch", inversedBy="champion")
+     */
+    protected $summonerInMatch;
 
     /**
      * Get id
@@ -47,12 +51,12 @@ class Champion
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Champion
-     */
+ * Set name
+ *
+ * @param string $name
+ *
+ * @return Champion
+ */
     public function setName($name)
     {
         $this->name = $name;
@@ -87,11 +91,34 @@ class Champion
     /**
      * Get championId
      *
-     * @return int
+     * @return integer
      */
     public function getChampionId()
     {
         return $this->championId;
     }
-}
 
+    /**
+     * Set summonerInMatch
+     *
+     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
+     *
+     * @return Champion
+     */
+    public function setSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch = null)
+    {
+        $this->summonerInMatch = $summonerInMatch;
+
+        return $this;
+    }
+
+    /**
+     * Get summonerInMatch
+     *
+     * @return \AppBundle\Entity\SummonerInMatch
+     */
+    public function getSummonerInMatch()
+    {
+        return $this->summonerInMatch;
+    }
+}

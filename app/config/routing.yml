@@ -27,4 +27,3 @@ user_update:
   path: /user/{userId}
   controller: AppBundle\Controller\UserController::updateUser
   methods: [POST]
-

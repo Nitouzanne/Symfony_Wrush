@@ -53,9 +53,9 @@ class User
     private $createdAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="accounts",mappedBy="User")
+     * @ORM\OneToOne(targetEntity="accounts",mappedBy="user")
      */
-    private $accounts;
+    protected $accounts;
 
     /**
      * Get id
