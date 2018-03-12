@@ -1,15 +1,14 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+api_platform:
+  resource: .
+  type: api_platform
+  prefix: /api
 
 distant_player_data:
   path: /distant/{game}/player_data
   controller: AppBundle\Controller\DistantApiController::playerData
-
-api_platform:
-    resource: .
-    type: api_platform
-    prefix: /api
 
 user_read:
   path: /user/{userId}

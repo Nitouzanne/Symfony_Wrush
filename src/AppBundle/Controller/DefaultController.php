@@ -15,18 +15,181 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-//  Initialize the library
-        $api = new RiotAPI([
-            //  Your API key, you can get one at https://developer.riotgames.com/
-            RiotAPI::SET_KEY    => 'RGAPI-1c7fed3a-16c7-417b-ad25-e7fd06579fb5',
-            //  Target region (you can change it during lifetime of the library instance)
-            RiotAPI::SET_REGION => Region::EUROPE_WEST,
-        ]);
 
-        $ch = $api->getStaticChampion(61);
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'ch' => $ch,
+    }
+
+    /**
+     * @Route("/formconnection", name="formpage")
+     */
+    public function formAction(Request $request)
+    {
+        $formBuilder = $this->createFormBuilder();
+
+        $formBuilder
+            ->add('mail',EmailType::class,[
+                'required' => true,
+                'label' => 'form.Mail',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 2,
+                        'max' => 255,
+                    ]),
+                    new Email(),
+                ],
+
+            ])
+            ->add('password',Text::class,[
+                'required' => true,
+                'label' => 'form.password',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 4,
+                        'max' => 30,
+                    ]),
+                ],
+            ]);
+
+        $form = $formBuilder->getForm();
+
+        $form ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $user = $form->getData();
+
+            $user['mail'];
+            $user['password'];
+
+            return $this->redirectToRoute('successcontactpage',[
+            ]);
+        }
+
+        return new  JsonResponse ([
+        ]);
+    }
+    /**
+     * @Route("/formcreate", name="creationpage")
+     */
+    public function creationAction(Request $request)
+    {
+        $formBuilder = $this->createFormBuilder();
+
+        $formBuilder
+            ->add('mail',EmailType::class,[
+                'required' => true,
+                'label' => 'form.Mail',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 2,
+                        'max' => 255,
+                    ]),
+                    new Email(),
+                ],
+
+            ])
+            ->add('password',Text::class,[
+                'required' => true,
+                'label' => 'form.password',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 4,
+                        'max' => 30,
+                    ]),
+                ],
+            ])
+            ->add('pseudo',Text::class,[
+                'required' => true,
+                'label' => 'form.pseudo',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 4,
+                        'max' => 30,
+                    ]),
+                ],
+            ]);
+
+        $form = $formBuilder->getForm();
+
+        $form ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $user= $form->getData();
+
+            $user['mail'];
+            $user['password'];
+            $user['pseudo'];
+
+            return $this->redirectToRoute('successcontactpage',[
+            ]);
+        }
+
+        return new  JsonResponse ([
+        ]);
+    }
+    /**
+     * @Route("/formupdate", name="updatepage")
+     */
+    public function updateAction(Request $request)
+    {
+        $formBuilder = $this->createFormBuilder();
+
+        $formBuilder
+            ->add('mail',EmailType::class,[
+                'required' => true,
+                'label' => 'form.Mail',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 2,
+                        'max' => 255,
+                    ]),
+                    new Email(),
+                ],
+
+            ])
+            ->add('password',Text::class,[
+                'required' => true,
+                'label' => 'form.password',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 4,
+                        'max' => 30,
+                    ]),
+                ],
+            ])
+            ->add('pseudo',Text::class,[
+                'required' => true,
+                'label' => 'form.pseudo',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 4,
+                        'max' => 30,
+                    ]),
+                ],
+            ]);
+
+        $form = $formBuilder->getForm();
+
+        $form ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $user=$form->getData();
+
+            $user['mail'];
+            $user['password'];
+            $user['pseudo'];
+
+            return $this->redirectToRoute('successcontactpage',[
+            ]);
+        }
+
+        return new  JsonResponse ([
         ]);
     }
 }

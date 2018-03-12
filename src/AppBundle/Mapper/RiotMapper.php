@@ -38,7 +38,7 @@ class RiotMapper implements MapperInterface
         $summoner = new Summoner();
 
         $summoner->setLevel($data->summonerLevel);
-        $summoner->setPseudo($data->name);
+        $summoner->setSummonerName($data->name);
         $summoner->setAccountId($data->accountId);
         $summoner->setProfilIconId($data->profileIconId);
 

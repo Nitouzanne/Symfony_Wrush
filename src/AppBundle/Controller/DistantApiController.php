@@ -34,7 +34,7 @@ class DistantApiController extends Controller
         return new JsonResponse([
             "game" => $game,
             "level" => $summoner->getLevel(),
-            "pseudo" => $summoner->getPseudo(),
+            "pseudo" => $summoner->getSummonerName(),
             "account_id" => $summoner->getAccountId(),
             "profil_icon_id" => $summoner->getProfilIconId(),
         ]);

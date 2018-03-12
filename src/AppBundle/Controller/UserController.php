@@ -145,11 +145,17 @@ class UserController extends Controller
     {
         $mail = $request->get('mail');
         $password = $request->get('password');
+
+        if (null === $mail || null === $password) {
+            throw new NotFoundHttpException();
+        }
+
         $user = $userRepository->findBy(['mail'=> $mail,'password' => hash('sha256', $password)]);
 
         if(!$user){
             throw new \Exception("Login/password Incorrect");
         }
+
         return new JsonResponse([
             'user_id' => $user[0]->getId(),
             'mail' => $user[0]->getMail(),
