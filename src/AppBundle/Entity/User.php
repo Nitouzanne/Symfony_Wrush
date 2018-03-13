@@ -77,14 +77,14 @@ class User
     private $games;
 
     /**
-     * @ORM\OneToMany(targetEntity="Summoner", mappedBy="User")
+     * @ORM\OneToMany(targetEntity="Summoner", mappedBy="user")
      */
     private $summoners;
 
     public function _construct()
     {
         $this->games = new ArrayCollection();
-        $this->summoners = new ArrayCollection();
+        $this->features = new ArrayCollection();
     }
 
     /**

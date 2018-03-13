@@ -1,6 +1,7 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
 api_platform:
   resource: .
   type: api_platform
@@ -9,20 +10,3 @@ api_platform:
 distant_player_data:
   path: /distant/{game}/player_data
   controller: AppBundle\Controller\DistantApiController::playerData
-
-user_read:
-  path: /user/{userId}
-  controller: AppBundle\Controller\UserController::readUser
-  methods: [GET]
-user_create:
-  path: /user
-  controller: AppBundle\Controller\UserController::createUser
-  methods: [POST]
-user_login:
-  path: /user/login
-  controller: AppBundle\Controller\UserController::loginUser
-  methods: [POST]
-user_update:
-  path: /user/{userId}
-  controller: AppBundle\Controller\UserController::updateUser
-  methods: [POST]

@@ -71,8 +71,8 @@ class Summoner
      */
     private $revisionDate;
 
-    /** @ORM\ManyToOne (targetEntity ="User", inversedBy ="summoners")
-     *  @ORM\JoinColumn (name="user_id ", referencedColumnName ="id")
+    /** @ORM\ManyToOne (targetEntity="User", inversedBy="summoners")
+     *  @ORM\JoinColumn (name="user_id", referencedColumnName="id")
      */
     private $user;
 
