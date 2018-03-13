@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,77 +23,36 @@ class MatchSummoner
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="accountId", type="integer")
-     */
-    private $accountId;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="pseudoInGame", type="string", length=255)
+     * @ORM\Column(name="gameType", type="string", length=255)
      */
-    private $pseudoInGame;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime")
-     */
-    private $date;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="matchId", type="integer")
-     */
-    private $matchId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="participantId", type="integer")
-     */
-    private $participantId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="win", type="boolean", length=255)
-     */
-    private $win;
+    private $gameType;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="kills", type="integer")
+     * @ORM\Column(name="gameCreation", type="integer")
      */
-    private $kills;
+    private $gameCreation;
 
     /**
-     * @var int
+     * @var array
      *
-     * @ORM\Column(name="deaths", type="integer")
+     * @ORM\Column(name="participantsIdentities", type="array")
      */
-    private $deaths;
+    private $participantsIdentities;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="assists", type="integer")
+     * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="matchSummoner")
      */
-    private $assists;
+    private $summonerInMatchs;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Summoner", inversedBy="matchSummoner")
-     */
-    protected $Summoner;
+    public function _construct()
+    {
+        $this->summonerInMatchs = new ArrayCollection();
+    }
 
-    /**
-     * @ORM\OneToOne(targetEntity="SummonerInMatch", inversedBy="matchSummoner")
-     */
-    protected $SummonerInMatch;
 
     /**
      * Get id
@@ -105,219 +65,75 @@ class MatchSummoner
     }
 
     /**
-     * Set accountId
+     * Set gameType
      *
-     * @param integer $accountId
+     * @param string $gameType
      *
      * @return MatchSummoner
      */
-    public function setAccountId($accountId)
+    public function setGameType($gameType)
     {
-        $this->accountId = $accountId;
+        $this->gameType = $gameType;
 
         return $this;
     }
 
     /**
-     * Get accountId
-     *
-     * @return int
-     */
-    public function getAccountId()
-    {
-        return $this->accountId;
-    }
-
-    /**
-     * Set pseudoInGame
-     *
-     * @param string $pseudoInGame
-     *
-     * @return MatchSummoner
-     */
-    public function setPseudoInGame($pseudoInGame)
-    {
-        $this->pseudoInGame = $pseudoInGame;
-
-        return $this;
-    }
-
-    /**
-     * Get pseudoInGame
+     * Get gameType
      *
      * @return string
      */
-    public function getPseudoInGame()
+    public function getGameType()
     {
-        return $this->pseudoInGame;
+        return $this->gameType;
     }
 
     /**
-     * Set date
+     * Set gameCreation
      *
-     * @param \DateTime $date
+     * @param integer $gameCreation
      *
      * @return MatchSummoner
      */
-    public function setDate($date)
+    public function setGameCreation($gameCreation)
     {
-        $this->date = $date;
+        $this->gameCreation = $gameCreation;
 
         return $this;
     }
 
     /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set matchId
-     *
-     * @param integer $matchId
-     *
-     * @return MatchSummoner
-     */
-    public function setMatchId($matchId)
-    {
-        $this->matchId = $matchId;
-
-        return $this;
-    }
-
-    /**
-     * Get matchId
-     *
-     * @return integer
-     */
-    public function getMatchId()
-    {
-        return $this->matchId;
-    }
-
-    /**
-     * Set participantId
-     *
-     * @param integer $participantId
-     *
-     * @return MatchSummoner
-     */
-    public function setParticipantId($participantId)
-    {
-        $this->participantId = $participantId;
-
-        return $this;
-    }
-
-    /**
-     * Get participantId
-     *
-     * @return integer
-     */
-    public function getParticipantId()
-    {
-        return $this->participantId;
-    }
-
-    /**
-     * Set win
-     *
-     * @param string $win
-     *
-     * @return MatchSummoner
-     */
-    public function setWin($win)
-    {
-        $this->win = $win;
-
-        return $this;
-    }
-
-    /**
-     * Get win
-     *
-     * @return string
-     */
-    public function getWin()
-    {
-        return $this->win;
-    }
-
-    /**
-     * Set kills
-     *
-     * @param integer $kills
-     *
-     * @return MatchSummoner
-     */
-    public function setKills($kills)
-    {
-        $this->kills = $kills;
-
-        return $this;
-    }
-
-    /**
-     * Get kills
+     * Get gameCreation
      *
      * @return int
      */
-    public function getKills()
+    public function getGameCreation()
     {
-        return $this->kills;
+        return $this->gameCreation;
     }
 
     /**
-     * Set deaths
+     * Set participantsIdentities
      *
-     * @param integer $deaths
+     * @param array $participantsIdentities
      *
      * @return MatchSummoner
      */
-    public function setDeaths($deaths)
+    public function setParticipantsIdentities($participantsIdentities)
     {
-        $this->deaths = $deaths;
+        $this->participantsIdentities = $participantsIdentities;
 
         return $this;
     }
 
     /**
-     * Get deaths
+     * Get participantsIdentities
      *
-     * @return int
+     * @return array
      */
-    public function getDeaths()
+    public function getParticipantsIdentities()
     {
-        return $this->deaths;
-    }
-
-    /**
-     * Set assists
-     *
-     * @param integer $assists
-     *
-     * @return MatchSummoner
-     */
-    public function setAssists($assists)
-    {
-        $this->assists = $assists;
-
-        return $this;
-    }
-
-    /**
-     * Get assists
-     *
-     * @return int
-     */
-    public function getAssists()
-    {
-        return $this->assists;
+        return $this->participantsIdentities;
     }
 }
 

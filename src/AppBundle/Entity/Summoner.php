@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,14 +58,33 @@ class Summoner
     private $leaguePoints;
 
     /**
-     * @ORM\OneToOne(targetEntity="accounts", mappedBy="Summoner")
+     * @var string
+     *
+     * @ORM\Column(name="highestAchievedSeasonTier", type="string")
      */
-    protected $accounts;
+    private $highestAchievedSeasonTier;
 
     /**
-     * @ORM\OneToOne(targetEntity="MatchSummoner", mappedBy="Summoner")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="revisionDate", type="datetime")
      */
-    protected $matchSummoner;
+    private $revisionDate;
+
+    /** @ORM\ManyToOne (targetEntity ="User", inversedBy ="summoners")
+     *  @ORM\JoinColumn (name="user_id ", referencedColumnName ="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="summoner")
+     */
+    private $summonerInMatchs;
+
+    public function _construct ()
+   {
+       $this->summonerInMatchs =  new ArrayCollection();
+   }
 
     /**
      * Get id
@@ -79,7 +99,7 @@ class Summoner
     /**
      * Set summonerName
      *
-     * @param string $pseudo
+     * @param string $summonerName
      *
      * @return Summoner
      */
@@ -195,5 +215,54 @@ class Summoner
     {
         return $this->leaguePoints;
     }
+
+    /**
+     * Set highestAchievedSeasonTier
+     *
+     * @param string $highestAchievedSeasonTier
+     *
+     * @return Summoner
+     */
+    public function setHighestAchievedSeasonTier($highestAchievedSeasonTier)
+    {
+        $this->highestAchievedSeasonTier= $highestAchievedSeasonTier;
+
+        return $this;
+    }
+
+    /**
+     * Get highestAchievedSeasonTier
+     *
+     * @return string
+     */
+    public function getHighestAchievedSeasonTier()
+    {
+        return $this->highestAchievedSeasonTier;
+    }
+
+    /**
+     * Set revisionDate
+     *
+     * @param \Datetime $revisionDate
+     *
+     * @return Summoner
+     */
+    public function setRevisionDate($revisionDate)
+    {
+        $this->revisionDate= $revisionDate;
+
+        return $this;
+    }
+
+    /**
+     * Get revisionDate
+     *
+     * @return \Datetime
+     */
+    public function getRevisionDate()
+    {
+        return $this->revisionDate;
+    }
+
 }
 

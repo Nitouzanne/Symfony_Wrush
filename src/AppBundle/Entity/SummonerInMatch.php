@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,44 +23,63 @@ class SummonerInMatch
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="matchId", type="integer")
-     */
-    private $matchId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="championId", type="integer")
-     */
-    private $championId;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="lane", type="string", length=255)
+     * @ORM\Column(name="role", type="string", length=255)
      */
-    private $lane;
+    private $role;
 
     /**
-     * @var integer
+     * @var bool
      *
-     * @ORM\Column(name="participantId", type="integer")
+     * @ORM\Column(name="win", type="boolean", length=255)
      */
-    private $participantId;
+    private $win;
 
     /**
-     * @ORM\OneToOne(targetEntity="matchSummoner",mappedBy="SummonerInMatch")
+     * @var int
+     *
+     * @ORM\Column(name="kills", type="integer")
      */
-    protected $matchSummoner;
+    private $kills;
 
     /**
-     * @ORM\OneToOne(targetEntity="Champion", mappedBy="SummonerInMatch")
+     * @var int
+     *
+     * @ORM\Column(name="deaths", type="integer")
      */
-    protected $champion;
+    private $deaths;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="assists", type="integer")
+     */
+    private $assists;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Champion")
+     * @ORM\JoinTable(name="summonerinmatchs_champions",
+     *     joinColumns={@ORM\JoinColumn (name =" summonerinmatch_id ", referencedColumnName ="id")},
+     *     inverseJoinColumns ={ @ORM\JoinColumn (name ="champion_id ", referencedColumnName ="id")}
+     * )
+     */
+    private $champions;
+
+    /** @ORM\ManyToOne (targetEntity ="Summoner", inversedBy ="summonerInMatchs")
+     *  @ORM\JoinColumn (name="summoner_id ", referencedColumnName ="id")
+     */
+    private $summoner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs")
+     */
+    private $matchSummoner;
+
+    public function _construct ()
+    {
+        $this->champions = new ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -71,99 +91,124 @@ class SummonerInMatch
     }
 
     /**
-     * Set matchId
+     * Set role
      *
-     * @param integer $matchId
+     * @param string $role
      *
      * @return SummonerInMatch
      */
-    public function setMatchId($matchId)
+    public function setRole($role)
     {
-        $this->matchId = $matchId;
+        $this->roe = $role;
 
         return $this;
     }
 
     /**
-     * Get matchId
-     *
-     * @return int
-     */
-    public function getMatchId()
-    {
-        return $this->matchId;
-    }
-
-    /**
-     * Set championId
-     *
-     * @param integer $championId
-     *
-     * @return SummonerInMatch
-     */
-    public function setChampionId($championId)
-    {
-        $this->championId = $championId;
-
-        return $this;
-    }
-
-    /**
-     * Get championId
-     *
-     * @return integer
-     */
-    public function getChampionId()
-    {
-        return $this->championId;
-    }
-
-    /**
-     * Set lane
-     *
-     * @param string $lane
-     *
-     * @return SummonerInMatch
-     */
-    public function setLane($lane)
-    {
-        $this->lane = $lane;
-
-        return $this;
-    }
-
-    /**
-     * Get lane
+     * Get role
      *
      * @return string
      */
-    public function getLane()
+    public function getRole()
     {
-        return $this->lane;
+        return $this->role;
     }
 
     /**
-     * Set participantId
+     * Set win
      *
-     * @param integer $participantId
+     * @param bool $win
      *
      * @return SummonerInMatch
      */
-    public function setParticipantId($participantId)
+    public function setWin($win)
     {
-        $this->participantId = $participantId;
+        $this->win = $win;
 
         return $this;
     }
 
     /**
-     * Get participantId
+     * Get win
      *
-     * @return integer
+     * @return bool
      */
-    public function getParticipantId()
+    public function getWin()
     {
-        return $this->participantId;
+        return $this->win;
     }
+
+    /**
+     * Set kills
+     *
+     * @param integer $kills
+     *
+     * @return SummonerInMatch
+     */
+    public function setKills($kills)
+    {
+        $this->kills = $kills;
+
+        return $this;
+    }
+
+    /**
+     * Get kills
+     *
+     * @return int
+     */
+    public function getKills()
+    {
+        return $this->kills;
+    }
+
+    /**
+     * Set deaths
+     *
+     * @param integer $deaths
+     *
+     * @return SummonerInMatch
+     */
+    public function setDeaths($deaths)
+    {
+        $this->deaths = $deaths;
+
+        return $this;
+    }
+
+    /**
+     * Get deaths
+     *
+     * @return int
+     */
+    public function getDeaths()
+    {
+        return $this->deaths;
+    }
+
+    /**
+     * Set assists
+     *
+     * @param integer $assists
+     *
+     * @return SummonerInMatch
+     */
+    public function setAssists($assists)
+    {
+        $this->assists = $assists;
+
+        return $this;
+    }
+
+    /**
+     * Get assists
+     *
+     * @return int
+     */
+    public function getAssists()
+    {
+        return $this->assists;
+    }
+
 }
 

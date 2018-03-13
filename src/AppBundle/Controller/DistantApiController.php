@@ -13,10 +13,6 @@ class DistantApiController extends Controller
 {
     public function playerData($game, Request $request, MapperInterface $mapper)
     {
-        // TODO
-        // get dynamic region
-        // get dynamic summoner name
-
         $pseudo = $request->get('pseudo');
         $region = $request->get('region', Region::EUROPE_WEST);
 

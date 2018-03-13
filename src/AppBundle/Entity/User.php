@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
@@ -27,9 +28,23 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudoGame", type="string", length=255)
+     * @ORM\Column(name="summonerName", type="string", length=255)
      */
-    private $pseudoGame;
+    private $summonerName;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="UserId", type="integer", length=255)
+     */
+    private $userId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="gameId", type="integer", length=255)
+     */
+    private $gameId;
 
     /**
      * @var string
@@ -53,9 +68,24 @@ class User
     private $createdAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="accounts",mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="Game")
+     * @ORM\JoinTable(name="users_games",
+     *     joinColumns={@ORM\JoinColumn (name="user_id ", referencedColumnName ="id")},
+     *     inverseJoinColumns ={ @ORM\JoinColumn (name ="game_id ", referencedColumnName ="id")}
+     * )
      */
-    protected $accounts;
+    private $games;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Summoner", mappedBy="User")
+     */
+    private $summoners;
+
+    public function _construct()
+    {
+        $this->games = new ArrayCollection();
+        $this->summoners = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -68,27 +98,75 @@ class User
     }
 
     /**
-     * Set pseudoGame
+     * Set userId
      *
-     * @param string $pseudoGame
+     * @param int $userId
      *
      * @return User
      */
-    public function setPseudoGame($pseudoGame)
+    public function setUserId($userId)
     {
-        $this->pseudoGame = $pseudoGame;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get pseudoGame
+     * Get userId
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set gameId
+     *
+     * @param int $gameId
+     *
+     * @return User
+     */
+    public function setGameId($gameId)
+    {
+        $this->gameId = $gameId;
+
+        return $this;
+    }
+
+    /**
+     * Get gameId
+     *
+     * @return int
+     */
+    public function getGameId()
+    {
+        return $this->gameId;
+    }
+
+    /**
+     * Set summonerName
+     *
+     * @param string $summonerName
+     *
+     * @return User
+     */
+    public function setSummonerName($summonerName)
+    {
+        $this->summonerName = $summonerName;
+
+        return $this;
+    }
+
+    /**
+     * Get summonerName
      *
      * @return string
      */
-    public function getPseudoGame()
+    public function getSummonerName()
     {
-        return $this->pseudoGame;
+        return $this->summonerName;
     }
 
     /**

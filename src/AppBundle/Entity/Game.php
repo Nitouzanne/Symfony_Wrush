@@ -36,12 +36,6 @@ class Game
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity="accounts",mappedBy="Game")
-     */
-    protected $accounts;
-
-
-    /**
      * Get id
      *
      * @return int
