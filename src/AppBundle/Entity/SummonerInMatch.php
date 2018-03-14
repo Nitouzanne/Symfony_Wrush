@@ -4,12 +4,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * SummonerInMatch
  *
  * @ORM\Table(name="summoner_in_match")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerInMatchRepository")
+ *
+ * @ApiResource(
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}}
+ *     )
  */
 class SummonerInMatch
 {
@@ -99,7 +105,7 @@ class SummonerInMatch
      */
     public function setRole($role)
     {
-        $this->roe = $role;
+        $this->role = $role;
 
         return $this;
     }

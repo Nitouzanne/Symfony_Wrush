@@ -3,12 +3,18 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * Game
  *
  * @ORM\Table(name="game")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GameRepository")
+ *
+ * @ApiResource(
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}}
+ *     )
  */
 class Game
 {

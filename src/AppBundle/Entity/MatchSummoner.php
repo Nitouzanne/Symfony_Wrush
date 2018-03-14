@@ -4,12 +4,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * MatchSummoner
  *
  * @ORM\Table(name="match_summoner")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MatchSummonerRepository")
+ *
+ * @ApiResource(
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}}
+ *     )
  */
 class MatchSummoner
 {

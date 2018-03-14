@@ -11,6 +11,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DistantApiController extends Controller
 {
+    /**
+     * @param $game
+     * @param Request $request
+     * @param MapperInterface $mapper
+     * @return JsonResponse
+     */
     public function playerData($game, Request $request, MapperInterface $mapper)
     {
         $pseudo = $request->get('pseudo');

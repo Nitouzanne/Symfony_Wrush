@@ -5,12 +5,14 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ *
  *
  * @ApiResource
  */
@@ -29,6 +31,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="summonerName", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $summonerName;
 

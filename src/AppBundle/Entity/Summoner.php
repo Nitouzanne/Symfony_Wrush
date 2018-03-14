@@ -4,12 +4,19 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Summoner
  *
  * @ORM\Table(name="summoner")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerRepository")
+ *
+ * @ApiResource(
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}}
+ *     )
  */
 class Summoner
 {
@@ -26,6 +33,7 @@ class Summoner
      * @var string
      *
      * @ORM\Column(name="summonerName", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $summonerName;
 

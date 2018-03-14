@@ -11,5 +11,5 @@ interface MapperInterface
      * @param string $region
      * @return Summoner
      */
-    function getPlayerData(string $name, string $region = null) : Summoner;
+    function getPlayerData( $name, $region = null) : Summoner;
 }
