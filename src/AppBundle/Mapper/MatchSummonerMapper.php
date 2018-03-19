@@ -1,15 +1,17 @@
 <?php
-
 namespace AppBundle\Mapper;
 
-
-use AppBundle\Entity\Summoner;
+use AppBundle\Entity\MatchSummoner;
 use Doctrine\ORM\EntityManagerInterface;
 use RiotAPI\Definitions\Region;
 use RiotAPI\RiotAPI;
-use Symfony\Component\Form\Tests\Extension\Core\DataTransformer\DateTimeToLocalizedStringTransformerTest;
 
-class SummonerMapper
+/**
+ * Class MatchSummonerMapper
+ * @author Nicolas Touzanne
+ * @package AppBundle\Mapper
+ */
+class MatchSummonerMapper
 {
     /** @var RiotAPI  */
     private $api;
@@ -34,12 +36,12 @@ class SummonerMapper
     }
 
     /**
-     * @param string $name
+     * @param int $accountId
      *
      * @param string $region
-     * @return Summoner
+     * @return matchSummoner
      */
-    public function getPlayerData($name,$region = null)
+    public function getMatchData($accountId, $region = null)
     {
         $entityManager = require_once join(DIRECTORY_SEPARATOR, [__DIR__, 'bootstrap.php']);
 
@@ -48,19 +50,26 @@ class SummonerMapper
         }
         $this->api->setRegion($region);
 
-        $data = $this->api->getSummonerByName($name);
+        $data = $this->api->getMatchlistByAccount($accountId);
+        $matches = $data->matches;
 
-        $summoner = new Summoner();
+        $matchId = $matches->gameId;
+        
 
-        $summoner->setLevel($data->summonerLevel);
-        $summoner->setSummonerName($data->name);
-        $summoner->setAccountId($data->accountId);
-        $summoner->setProfilIconId($data->profileIconId);
-        $summoner->setRevisionDate($data->revisionDate);
+        $dataMatch = $this->api->getMatch($matchId);
 
-        $entityManager->persist($summoner);
+        $matchSummoner = new MatchSummoner();
+
+        $matchSummoner->setGameCreation($dataMatch->gameCreation);
+        $matchSummoner->setParticipantsIdentities($dataMatch->participantIdentities);
+        $matchSummoner->setGameType($dataMatch->gameType);
+
+        //$data->seasonId;
+        //$data->participants;
+
+        $entityManager->persist($matchSummoner);
         $entityManager->flush();
 
-        return $summoner;
+        return $matchSummoner;
     }
 }

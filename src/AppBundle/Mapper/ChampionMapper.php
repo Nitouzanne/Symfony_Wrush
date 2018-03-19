@@ -1,15 +1,17 @@
 <?php
-
 namespace AppBundle\Mapper;
 
-
-use AppBundle\Entity\Summoner;
+use AppBundle\Entity\Champion;
 use Doctrine\ORM\EntityManagerInterface;
 use RiotAPI\Definitions\Region;
 use RiotAPI\RiotAPI;
-use Symfony\Component\Form\Tests\Extension\Core\DataTransformer\DateTimeToLocalizedStringTransformerTest;
 
-class SummonerMapper
+/**
+ * Class ChampionMapper
+ * @author Nicolas Touzanne
+ * @package AppBundle\Mapper
+ */
+class ChampionMapper
 {
     /** @var RiotAPI  */
     private $api;
@@ -34,12 +36,12 @@ class SummonerMapper
     }
 
     /**
-     * @param string $name
+     * @param string $id
      *
      * @param string $region
-     * @return Summoner
+     * @return Champion
      */
-    public function getPlayerData($name,$region = null)
+    public function getChampionData($id,$region = null)
     {
         $entityManager = require_once join(DIRECTORY_SEPARATOR, [__DIR__, 'bootstrap.php']);
 
@@ -48,19 +50,15 @@ class SummonerMapper
         }
         $this->api->setRegion($region);
 
-        $data = $this->api->getSummonerByName($name);
+        $data = $this->api->getChampionById($id);
 
-        $summoner = new Summoner();
+        $champion = new Champion();
 
-        $summoner->setLevel($data->summonerLevel);
-        $summoner->setSummonerName($data->name);
-        $summoner->setAccountId($data->accountId);
-        $summoner->setProfilIconId($data->profileIconId);
-        $summoner->setRevisionDate($data->revisionDate);
+        $champion->setName($data->name);
 
-        $entityManager->persist($summoner);
+        $entityManager->persist($champion);
         $entityManager->flush();
 
-        return $summoner;
+        return $champion;
     }
 }
