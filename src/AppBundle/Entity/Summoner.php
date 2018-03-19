@@ -73,9 +73,9 @@ class Summoner
     private $highestAchievedSeasonTier;
 
     /**
-     * @var \DateTime
+     * @var int
      *
-     * @ORM\Column(name="revisionDate", type="datetime")
+     * @ORM\Column(name="revisionDate", type="integer")
      */
     private $revisionDate;
 

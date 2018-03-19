@@ -36,6 +36,7 @@ class SummonerInMatchMapper
     }
 
     /**
+     * @param int $accountId
      *
      * @param string $region
      * @return summonerInMatch
@@ -49,11 +50,18 @@ class SummonerInMatchMapper
         }
         $this->api->setRegion($region);
 
-        $data = $this->api->getM();
+        $data = $this->api->getMatchlistByAccount($accountId);
+        $matchId = $data->matches[]->gameId;
+        $partData = $this->api->getMatch($matchId);
+        $partData2 = $partData->participants[]->stats;
 
         $summonerInMatch = new SummonerInMatch();
 
-        $summonerInMatch->setName($data->name);
+        $summonerInMatch->setWin($partData2->win);
+        $summonerInMatch->setKills($partData2->kills);
+        $summonerInMatch->setDeaths($partData2->deaths);
+        $summonerInMatch->setAssists($partData2->assists);
+        $summonerInMatch->setRole($data->matches[]->role);
 
         $entityManager->persist($summonerInMatch);
         $entityManager->flush();

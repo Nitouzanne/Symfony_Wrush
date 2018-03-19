@@ -51,10 +51,7 @@ class MatchSummonerMapper
         $this->api->setRegion($region);
 
         $data = $this->api->getMatchlistByAccount($accountId);
-        $matches = $data->matches;
-
-        $matchId = $matches->gameId;
-        
+        $matchId = $data->matches[]->gameId;
 
         $dataMatch = $this->api->getMatch($matchId);
 

@@ -49,7 +49,13 @@ class SummonerMapper
         $this->api->setRegion($region);
 
         $data = $this->api->getSummonerByName($name);
-
+        $accountId = $data->accountId;
+        $dataMatchList = $this->api->getMatchlistByAccount($accountId);
+        $matchId = $dataMatchList->matches[]->gameId;
+        $summonerId = $data->id;
+        $partData = $this->api->getMatch($matchId);
+        $partData2 = $partData->participants[]->stats;
+        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
         $summoner = new Summoner();
 
         $summoner->setLevel($data->summonerLevel);
@@ -57,6 +63,8 @@ class SummonerMapper
         $summoner->setAccountId($data->accountId);
         $summoner->setProfilIconId($data->profileIconId);
         $summoner->setRevisionDate($data->revisionDate);
+        $summoner->setLeaguePoints($dataLeague[]->leaguePoints);
+        $summoner->setHighestAchievedSeasonTier($partData->participants[]->highestAchievedSeasonTier);
 
         $entityManager->persist($summoner);
         $entityManager->flush();
