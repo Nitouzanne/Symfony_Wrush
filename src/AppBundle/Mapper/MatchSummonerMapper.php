@@ -50,16 +50,18 @@ class MatchSummonerMapper
         }
         $this->api->setRegion($region);
 
-        $data = $this->api->getMatchlistByAccount($accountId);
-        $matchId = $data->matches[]->gameId;
-
-        $dataMatch = $this->api->getMatch($matchId);
-
         $matchSummoner = new MatchSummoner();
+        $data = $this->api->getMatchlistByAccount($accountId);
+        $matchLis = $data->matches;
 
-        $matchSummoner->setGameCreation($dataMatch->gameCreation);
-        $matchSummoner->setParticipantsIdentities($dataMatch->participantIdentities);
-        $matchSummoner->setGameType($dataMatch->gameType);
+        $c = 0 ;
+        foreach ($matchLis as $key => $value){
+            $matchId = $matchLis[$c]->gameId;
+            $dataMatch = $this->api->getMatch($matchId);
+            $matchSummoner->setGameCreation($dataMatch->gameCreation);
+            $matchSummoner->setParticipantsIdentities($dataMatch->participantIdentities);
+            $matchSummoner->setGameType($dataMatch->gameType);
+        }
 
         //$data->seasonId;
         //$data->participants;

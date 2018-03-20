@@ -50,18 +50,25 @@ class SummonerInMatchMapper
         }
         $this->api->setRegion($region);
 
-        $data = $this->api->getMatchlistByAccount($accountId);
-        $matchId = $data->matches[]->gameId;
-        $partData = $this->api->getMatch($matchId);
-        $partData2 = $partData->participants[]->stats;
-
         $summonerInMatch = new SummonerInMatch();
+        $data = $this->api->getMatchlistByAccount($accountId);
+        $matchLis = $data->matches;
 
-        $summonerInMatch->setWin($partData2->win);
-        $summonerInMatch->setKills($partData2->kills);
-        $summonerInMatch->setDeaths($partData2->deaths);
-        $summonerInMatch->setAssists($partData2->assists);
-        $summonerInMatch->setRole($data->matches[]->role);
+        $c = 0;
+        $s = 0;
+        foreach ($matchLis as $key => $value){
+            $matchId = $matchLis[$c]->gameId;
+            $summonerInMatch->setRole($matchLis[$c]->role);
+            $partData = $this->api->getMatch($matchId);
+            $partData2 = $partData->participants;
+            foreach ($partData2 as $keys => $values){
+                $stats = $partData2[$s]->stats;
+                $summonerInMatch->setWin($stats->win);
+                $summonerInMatch->setKills($stats->kills);
+                $summonerInMatch->setDeaths($stats->deaths);
+                $summonerInMatch->setAssists($stats->assists);
+            }
+        }
 
         $entityManager->persist($summonerInMatch);
         $entityManager->flush();

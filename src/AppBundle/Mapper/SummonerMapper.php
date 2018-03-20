@@ -9,6 +9,11 @@ use RiotAPI\Definitions\Region;
 use RiotAPI\RiotAPI;
 use Symfony\Component\Form\Tests\Extension\Core\DataTransformer\DateTimeToLocalizedStringTransformerTest;
 
+/**
+ * Class SummonerMapper
+ * @author Nicolas Touzanne
+ * @package AppBundle\Mapper
+ */
 class SummonerMapper
 {
     /** @var RiotAPI  */
@@ -48,23 +53,35 @@ class SummonerMapper
         }
         $this->api->setRegion($region);
 
+        $summoner = new Summoner();
         $data = $this->api->getSummonerByName($name);
         $accountId = $data->accountId;
-        $dataMatchList = $this->api->getMatchlistByAccount($accountId);
-        $matchId = $dataMatchList->matches[]->gameId;
         $summonerId = $data->id;
-        $partData = $this->api->getMatch($matchId);
-        $partData2 = $partData->participants[]->stats;
-        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
-        $summoner = new Summoner();
+        $dataMatchList = $this->api->getMatchlistByAccount($accountId);
 
+        $matchLis = $dataMatchList->matches;
+        $c = 0;
+        $s = 0;
+        foreach($matchLis as $key => $value){
+            $matchId = $matchLis[$c]->gameId;
+            $partData = $this->api->getMatch($matchId);
+            $parData = $partData->participants;
+            foreach ($parData as $keys => $values){
+                $summoner->setHighestAchievedSeasonTier($parData[$s]->highestAchievedSeasonTier);
+            }
+        }
+        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
+        $d = 0;
+        foreach($dataLeague as $keyd => $valoue){
+            $summoner->setLeaguePoints($dataLeague[d]->leaguePoints);
+        }
+
+        //$partData2 = $partData->participants[]->stats;
         $summoner->setLevel($data->summonerLevel);
         $summoner->setSummonerName($data->name);
         $summoner->setAccountId($data->accountId);
         $summoner->setProfilIconId($data->profileIconId);
         $summoner->setRevisionDate($data->revisionDate);
-        $summoner->setLeaguePoints($dataLeague[]->leaguePoints);
-        $summoner->setHighestAchievedSeasonTier($partData->participants[]->highestAchievedSeasonTier);
 
         $entityManager->persist($summoner);
         $entityManager->flush();

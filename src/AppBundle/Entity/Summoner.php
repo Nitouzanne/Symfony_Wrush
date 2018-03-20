@@ -251,7 +251,7 @@ class Summoner
     /**
      * Set revisionDate
      *
-     * @param \Datetime $revisionDate
+     * @param integer $revisionDate
      *
      * @return Summoner
      */
@@ -265,7 +265,7 @@ class Summoner
     /**
      * Get revisionDate
      *
-     * @return \Datetime
+     * @return int
      */
     public function getRevisionDate()
     {
