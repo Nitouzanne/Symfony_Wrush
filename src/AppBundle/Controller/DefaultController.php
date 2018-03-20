@@ -17,57 +17,6 @@ class DefaultController extends Controller
     {
 
     }
-
-    /**
-     * @Route("/formconnection", name="formpage")
-     */
-    public function formAction(Request $request)
-    {
-        $formBuilder = $this->createFormBuilder();
-
-        $formBuilder
-            ->add('mail',EmailType::class,[
-                'required' => true,
-                'label' => 'form.Mail',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 2,
-                        'max' => 255,
-                    ]),
-                    new Email(),
-                ],
-
-            ])
-            ->add('password',Text::class,[
-                'required' => true,
-                'label' => 'form.password',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 4,
-                        'max' => 30,
-                    ]),
-                ],
-            ]);
-
-        $form = $formBuilder->getForm();
-
-        $form ->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $user = $form->getData();
-
-            $user['mail'];
-            $user['password'];
-
-            return $this->redirectToRoute('successcontactpage',[
-            ]);
-        }
-
-        return new  JsonResponse ([
-        ]);
-    }
     /**
      * @Route("/formcreate", name="creationpage")
      */
@@ -130,66 +79,5 @@ class DefaultController extends Controller
         return new  JsonResponse ([
         ]);
     }
-    /**
-     * @Route("/formupdate", name="updatepage")
-     */
-    public function updateAction(Request $request)
-    {
-        $formBuilder = $this->createFormBuilder();
 
-        $formBuilder
-            ->add('mail',EmailType::class,[
-                'required' => true,
-                'label' => 'form.Mail',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 2,
-                        'max' => 255,
-                    ]),
-                    new Email(),
-                ],
-
-            ])
-            ->add('password',Text::class,[
-                'required' => true,
-                'label' => 'form.password',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 4,
-                        'max' => 30,
-                    ]),
-                ],
-            ])
-            ->add('pseudo',Text::class,[
-                'required' => true,
-                'label' => 'form.pseudo',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 4,
-                        'max' => 30,
-                    ]),
-                ],
-            ]);
-
-        $form = $formBuilder->getForm();
-
-        $form ->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $user=$form->getData();
-
-            $user['mail'];
-            $user['password'];
-            $user['pseudo'];
-
-            return $this->redirectToRoute('successcontactpage',[
-            ]);
-        }
-
-        return new  JsonResponse ([
-        ]);
-    }
 }

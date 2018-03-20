@@ -2,7 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Mapper\MapperInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use RiotAPI\Definitions\Region;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,12 +13,17 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DistantApiController extends Controller
 {
     /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    /**
      * @param $game
      * @param Request $request
-     * @param MapperInterface $mapper
+     * @param EntityManagerInterface $em
      * @return JsonResponse
      */
-    public function playerData($game, Request $request, MapperInterface $mapper)
+    public function playerData($game, Request $request, EntityManagerInterface $em)
     {
         $pseudo = $request->get('pseudo');
         $region = $request->get('region', Region::EUROPE_WEST);
@@ -26,12 +32,9 @@ class DistantApiController extends Controller
             throw new NotFoundHttpException();
         }
 
-        // check if in cache
-        // if yes, return cache.
 
-        $summoner = $mapper->getPlayerData($pseudo, $region);
+        $summoner = $em->getExpressionBuilder();
 
-        // store in cache
 
         return new JsonResponse([
             "game" => $game,
