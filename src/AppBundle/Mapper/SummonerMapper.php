@@ -32,7 +32,7 @@ class SummonerMapper
     {
         $this->em = $em;
         $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-6a0d362b-8757-44f2-8082-9d90030dfbd2',
+            RiotAPI::SET_KEY    => 'RGAPI-3ebbaa6f-c791-4bb5-98cd-e279aa8e4957',
             RiotAPI::SET_REGION => Region::EUROPE_WEST,
             RiotAPI::SET_VERIFY_SSL => false,
         ]);
@@ -59,16 +59,21 @@ class SummonerMapper
 
         $matchLis = $dataMatchList->matches;
         foreach($matchLis as $key => $value){
-            $matchId = $value->gameId;
-            $partData = $this->api->getMatch($matchId);
+            $partData = $this->api->getMatch($value->gameId);
             $parData = $partData->participants;
             foreach ($parData as $keys => $values){
+                $summoner = new Summoner();
                 $summoner->setHighestAchievedSeasonTier($values->highestAchievedSeasonTier);
+                $this->em->persist($summoner);
+                $this->em->flush();
             }
         }
         $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
         foreach($dataLeague as $keyd => $valoue){
+            $summoner = new Summoner();
             $summoner->setLeaguePoints($valoue->leaguePoints);
+            $this->em->persist($summoner);
+            $this->em->flush();
         }
 
         //$partData2 = $partData->participants[]->stats;

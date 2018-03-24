@@ -29,7 +29,7 @@ class ChampionMapper
     {
         $this->em = $em;
         $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-1e330f10-db7c-4362-aae7-5eed4c2f7918',
+            RiotAPI::SET_KEY    => 'RGAPI-3ebbaa6f-c791-4bb5-98cd-e279aa8e4957',
             RiotAPI::SET_REGION => Region::EUROPE_WEST,
             RiotAPI::SET_VERIFY_SSL => false,
         ]);
@@ -49,7 +49,6 @@ class ChampionMapper
         $champion = 0;
         $data = $this->api->getStaticChampions();
 
-
             $champ = $data->data ;
             foreach ($champ as $keys => $val){
                 $champion = new Champion();
@@ -57,8 +56,6 @@ class ChampionMapper
                 $this->em->persist($champion);
                 $this->em->flush();
             }
-
-
         return $champion;
     }
 }

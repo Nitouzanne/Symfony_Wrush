@@ -9,4 +9,9 @@ api_platform:
 
 champion_data:
   path: /champions
-  controller: AppBundle\Controller\ChampionAction
+  controller: AppBundle\Controller\ChampionAction::championData
+
+playerData:
+  path: /summonerName
+  controller: AppBundle\Controller\PlayerAction::playerData
+

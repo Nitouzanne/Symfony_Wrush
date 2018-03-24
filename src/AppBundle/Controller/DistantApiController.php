@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Mapper\ChampionMapper;
+use AppBundle\Mapper\SummonerMapper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
 use RiotAPI\Definitions\Region;
@@ -22,11 +23,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DistantApiController extends Controller
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
      * @param Request $request
      * @param ChampionMapper $mapper
      * @return JsonResponse
@@ -35,18 +31,42 @@ class DistantApiController extends Controller
      */
     public function ChampionAction(Request $request, ChampionMapper $mapper)
     {
-        $mapper->getChampionData();
-        /*
+        $champion = $mapper->getChampionData();
+
+        return new JsonResponse([
+            "Id" => $champion->getId(),
+            "Name" => $champion->getName(),
+        ]);
+    }
+
+    /**
+     * @param $game
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @Route("/summonerName", name="Summoner")
+     */
+    public function playerAction( Request $request, SummonerMapper $mapper)
+    {
         $pseudo = $request->get('pseudo');
         $region = $request->get('region', Region::EUROPE_WEST);
 
         if (null === $pseudo) {
             throw new NotFoundHttpException();
         }
-        */
-        return new JsonResponse([
-            "Name" => $mapper,
-        ]);
 
+        $summoner = $mapper->getPlayerData($pseudo, $region);
+
+        return new JsonResponse([
+            "level" => $summoner->getLevel(),
+            "pseudo" => $summoner->getSummonerName(),
+            "account_id" => $summoner->getAccountId(),
+            "profil_icon_id" => $summoner->getProfilIconId(),
+            "TierSeason atteint" => $summoner->getHighestAchievedSeasonTier(),
+            "League Points" => $summoner->getLeaguePoints(),
+
+        ]);
     }
+
 }
