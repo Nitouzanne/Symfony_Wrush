@@ -66,11 +66,8 @@ class SummonerInMatchMapper
                 $summonerInMatch->setAssists($stats->assists);
                 $this->em->persist($summonerInMatch);
                 $this->em->flush();
-
             }
         }
-
-
         return $summonerInMatch;
     }
 }

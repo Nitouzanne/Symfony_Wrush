@@ -53,6 +53,7 @@ class ChampionMapper
             foreach ($champ as $keys => $val){
                 $champion = new Champion();
                 $champion->setName($val->name);
+
                 $this->em->persist($champion);
                 $this->em->flush();
             }

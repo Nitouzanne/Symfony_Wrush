@@ -57,12 +57,14 @@ class DistantApiController extends Controller
         }
 
         $summoner = $mapper->getPlayerData($pseudo, $region);
+        $daterevision = date("d-m-Y", $summoner->getRevisionDate());
 
         return new JsonResponse([
             "level" => $summoner->getLevel(),
             "pseudo" => $summoner->getSummonerName(),
             "account_id" => $summoner->getAccountId(),
             "profil_icon_id" => $summoner->getProfilIconId(),
+            "Derniere mise à jour" => $daterevision,
             "TierSeason atteint" => $summoner->getHighestAchievedSeasonTier(),
             "League Points" => $summoner->getLeaguePoints(),
 

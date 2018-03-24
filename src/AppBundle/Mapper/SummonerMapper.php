@@ -32,7 +32,7 @@ class SummonerMapper
     {
         $this->em = $em;
         $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-3ebbaa6f-c791-4bb5-98cd-e279aa8e4957',
+            RiotAPI::SET_KEY    => $this->container->get('key.Value'),
             RiotAPI::SET_REGION => Region::EUROPE_WEST,
             RiotAPI::SET_VERIFY_SSL => false,
         ]);
