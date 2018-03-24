@@ -29,35 +29,35 @@ class ChampionMapper
     {
         $this->em = $em;
         $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-1c7fed3a-16c7-417b-ad25-e7fd06579fb5',
+            RiotAPI::SET_KEY    => 'RGAPI-1e330f10-db7c-4362-aae7-5eed4c2f7918',
             RiotAPI::SET_REGION => Region::EUROPE_WEST,
             RiotAPI::SET_VERIFY_SSL => false,
         ]);
     }
 
     /**
-     * @param string $id
-     *
      * @param string $region
-     * @return Champion
+     * @return object Champion
      */
-    public function getChampionData($id,$region = null)
+    public function getChampionData($region = null)
     {
-        $entityManager = require_once join(DIRECTORY_SEPARATOR, [__DIR__, 'bootstrap.php']);
-
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
         $this->api->setRegion($region);
 
-        $data = $this->api->getChampionById($id);
+        $champion = 0;
+        $data = $this->api->getStaticChampions();
 
-        $champion = new Champion();
 
-        $champion->setName($data->name);
+            $champ = $data->data ;
+            foreach ($champ as $keys => $val){
+                $champion = new Champion();
+                $champion->setName($val->name);
+                $this->em->persist($champion);
+                $this->em->flush();
+            }
 
-        $entityManager->persist($champion);
-        $entityManager->flush();
 
         return $champion;
     }

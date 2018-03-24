@@ -29,7 +29,7 @@ class MatchSummonerMapper
     {
         $this->em = $em;
         $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-1c7fed3a-16c7-417b-ad25-e7fd06579fb5',
+            RiotAPI::SET_KEY    => 'RGAPI-6a0d362b-8757-44f2-8082-9d90030dfbd2',
             RiotAPI::SET_REGION => Region::EUROPE_WEST,
             RiotAPI::SET_VERIFY_SSL => false,
         ]);
@@ -43,8 +43,6 @@ class MatchSummonerMapper
      */
     public function getMatchData($accountId, $region = null)
     {
-        $entityManager = require_once join(DIRECTORY_SEPARATOR, [__DIR__, 'bootstrap.php']);
-
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
@@ -54,9 +52,8 @@ class MatchSummonerMapper
         $data = $this->api->getMatchlistByAccount($accountId);
         $matchLis = $data->matches;
 
-        $c = 0 ;
         foreach ($matchLis as $key => $value){
-            $matchId = $matchLis[$c]->gameId;
+            $matchId = $value->gameId;
             $dataMatch = $this->api->getMatch($matchId);
             $matchSummoner->setGameCreation($dataMatch->gameCreation);
             $matchSummoner->setParticipantsIdentities($dataMatch->participantIdentities);
@@ -66,8 +63,8 @@ class MatchSummonerMapper
         //$data->seasonId;
         //$data->participants;
 
-        $entityManager->persist($matchSummoner);
-        $entityManager->flush();
+        $this->em->persist($matchSummoner);
+        $this->em->flush();
 
         return $matchSummoner;
     }

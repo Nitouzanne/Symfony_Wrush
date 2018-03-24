@@ -7,6 +7,6 @@ api_platform:
   type: api_platform
   prefix: /api
 
-distant_player_data:
-  path: /distant/{game}/player_data
-  controller: AppBundle\Controller\DistantApiController::playerData
+champion_data:
+  path: /champions
+  controller: AppBundle\Controller\ChampionAction

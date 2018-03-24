@@ -32,7 +32,7 @@ class SummonerMapper
     {
         $this->em = $em;
         $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-1c7fed3a-16c7-417b-ad25-e7fd06579fb5',
+            RiotAPI::SET_KEY    => 'RGAPI-6a0d362b-8757-44f2-8082-9d90030dfbd2',
             RiotAPI::SET_REGION => Region::EUROPE_WEST,
             RiotAPI::SET_VERIFY_SSL => false,
         ]);
@@ -46,8 +46,6 @@ class SummonerMapper
      */
     public function getPlayerData($name,$region = null)
     {
-        $entityManager = require_once join(DIRECTORY_SEPARATOR, [__DIR__, 'bootstrap.php']);
-
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
@@ -60,20 +58,17 @@ class SummonerMapper
         $dataMatchList = $this->api->getMatchlistByAccount($accountId);
 
         $matchLis = $dataMatchList->matches;
-        $c = 0;
-        $s = 0;
         foreach($matchLis as $key => $value){
-            $matchId = $matchLis[$c]->gameId;
+            $matchId = $value->gameId;
             $partData = $this->api->getMatch($matchId);
             $parData = $partData->participants;
             foreach ($parData as $keys => $values){
-                $summoner->setHighestAchievedSeasonTier($parData[$s]->highestAchievedSeasonTier);
+                $summoner->setHighestAchievedSeasonTier($values->highestAchievedSeasonTier);
             }
         }
         $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
-        $d = 0;
         foreach($dataLeague as $keyd => $valoue){
-            $summoner->setLeaguePoints($dataLeague[d]->leaguePoints);
+            $summoner->setLeaguePoints($valoue->leaguePoints);
         }
 
         //$partData2 = $partData->participants[]->stats;
@@ -83,8 +78,8 @@ class SummonerMapper
         $summoner->setProfilIconId($data->profileIconId);
         $summoner->setRevisionDate($data->revisionDate);
 
-        $entityManager->persist($summoner);
-        $entityManager->flush();
+        $this->em->persist($summoner);
+        $this->em->flush();
 
         return $summoner;
     }

@@ -34,9 +34,6 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
-
-    AppBundle\Mapper\MapperInterface: '@AppBundle\Mapper\RiotMapper'
-
     AppBundle\Repository\UserRepository:
         factory: 'doctrine.orm.entity_manager:getRepository'
         arguments: ['AppBundle\Entity\User']
