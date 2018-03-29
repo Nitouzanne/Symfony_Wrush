@@ -24,15 +24,12 @@ class ChampionMapper
     /**
      * SummonerMapper constructor.
      * @param EntityManagerInterface $em
+     * @param RiotAPI $api
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, RiotAPI $api)
     {
         $this->em = $em;
-        $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-3ebbaa6f-c791-4bb5-98cd-e279aa8e4957',
-            RiotAPI::SET_REGION => Region::EUROPE_WEST,
-            RiotAPI::SET_VERIFY_SSL => false,
-        ]);
+        $this->api = $api;
     }
 
     /**
@@ -44,14 +41,16 @@ class ChampionMapper
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
-        $this->api->setRegion($region);
+        $this->api->setTemporaryRegion($region);
 
         $champion = 0;
         $data = $this->api->getStaticChampions();
 
             $champ = $data->data ;
             foreach ($champ as $keys => $val){
+
                 $champion = new Champion();
+                $champion->setId($val->id);
                 $champion->setName($val->name);
 
                 $this->em->persist($champion);

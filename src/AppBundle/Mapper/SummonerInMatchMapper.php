@@ -24,15 +24,12 @@ class SummonerInMatchMapper
     /**
      * SummonerMapper constructor.
      * @param EntityManagerInterface $em
+     * @param $api
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em,RiotAPI $api)
     {
         $this->em = $em;
-        $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => 'RGAPI-6a0d362b-8757-44f2-8082-9d90030dfbd2',
-            RiotAPI::SET_REGION => Region::EUROPE_WEST,
-            RiotAPI::SET_VERIFY_SSL => false,
-        ]);
+        $this->api = $api;
     }
 
     /**
@@ -46,7 +43,7 @@ class SummonerInMatchMapper
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
-        $this->api->setRegion($region);
+        $this->api->setTemporaryRegion($region);
 
         $summonerInMatch = 0;
         $data = $this->api->getMatchlistByAccount($accountId);

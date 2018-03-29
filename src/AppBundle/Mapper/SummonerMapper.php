@@ -27,15 +27,12 @@ class SummonerMapper
     /**
      * SummonerMapper constructor.
      * @param EntityManagerInterface $em
+     * @param RiotAPI $api
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, RiotAPI $api)
     {
         $this->em = $em;
-        $this->api = new RiotAPI([
-            RiotAPI::SET_KEY    => $this->container->get('key.Value'),
-            RiotAPI::SET_REGION => Region::EUROPE_WEST,
-            RiotAPI::SET_VERIFY_SSL => false,
-        ]);
+        $this->api = $api;
     }
 
     /**
@@ -49,9 +46,9 @@ class SummonerMapper
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
-        $this->api->setRegion($region);
+        $this->api->setTemporaryRegion($region);
 
-        $summoner = new Summoner();
+        $summoner = 0;
         $data = $this->api->getSummonerByName($name);
         $accountId = $data->accountId;
         $summonerId = $data->id;
@@ -64,6 +61,11 @@ class SummonerMapper
             foreach ($parData as $keys => $values){
                 $summoner = new Summoner();
                 $summoner->setHighestAchievedSeasonTier($values->highestAchievedSeasonTier);
+                $summoner->setLevel($data->summonerLevel);
+                $summoner->setSummonerName($data->name);
+                $summoner->setAccountId($data->accountId);
+                $summoner->setProfilIconId($data->profileIconId);
+                $summoner->setRevisionDate($data->revisionDate);
                 $this->em->persist($summoner);
                 $this->em->flush();
             }
@@ -77,15 +79,6 @@ class SummonerMapper
         }
 
         //$partData2 = $partData->participants[]->stats;
-        $summoner->setLevel($data->summonerLevel);
-        $summoner->setSummonerName($data->name);
-        $summoner->setAccountId($data->accountId);
-        $summoner->setProfilIconId($data->profileIconId);
-        $summoner->setRevisionDate($data->revisionDate);
-
-        $this->em->persist($summoner);
-        $this->em->flush();
-
         return $summoner;
     }
 }

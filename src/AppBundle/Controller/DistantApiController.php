@@ -45,11 +45,10 @@ class DistantApiController extends Controller
      *
      * @return JsonResponse
      *
-     * @Route("/summonerName", name="Summoner")
+     * @Route("/summonerName/{pseudo}", name="Summoner")
      */
-    public function playerAction( Request $request, SummonerMapper $mapper)
+    public function playerAction( Request $request, SummonerMapper $mapper, $pseudo)
     {
-        $pseudo = $request->get('pseudo');
         $region = $request->get('region', Region::EUROPE_WEST);
 
         if (null === $pseudo) {
