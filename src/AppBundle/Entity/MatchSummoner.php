@@ -24,7 +24,7 @@ class MatchSummoner
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -57,20 +57,6 @@ class MatchSummoner
     public function _construct()
     {
         $this->summonerInMatchs = new ArrayCollection();
-    }
-
-    /**
-     * Set id
-     *
-     * @param int $id
-     *
-     * @return MatchSummoner
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**
