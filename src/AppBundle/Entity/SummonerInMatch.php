@@ -24,7 +24,7 @@ class SummonerInMatch
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
@@ -86,6 +86,21 @@ class SummonerInMatch
     {
         $this->champions = new ArrayCollection();
     }
+
+    /**
+     * Set id
+     *
+     * @param int $id
+     *
+     * @return SummonerInMatch
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     /**
      * Get id
      *

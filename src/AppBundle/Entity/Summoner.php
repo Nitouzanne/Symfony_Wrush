@@ -61,21 +61,21 @@ class Summoner
     /**
      * @var int
      *
-     * @ORM\Column(name="leaguePoints", type="integer")
+     * @ORM\Column(name="leaguePoints", nullable=true, type="integer")
      */
     private $leaguePoints;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="highestAchievedSeasonTier", type="string")
+     * @ORM\Column(name="highestAchievedSeasonTier", nullable=true, type="string")
      */
     private $highestAchievedSeasonTier;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="revisionDate", type="integer")
+     * @ORM\Column(name="revisionDate", type="bigint")
      */
     private $revisionDate;
 

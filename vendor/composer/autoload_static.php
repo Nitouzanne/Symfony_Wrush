@@ -298,13 +298,6 @@ class ComposerStaticInit26595d9076684d097dd7ae2fb5561396
                 0 => __DIR__ . '/..' . '/curl/curl/src',
             ),
         ),
-        'C' => 
-        array (
-            'Curl' => 
-            array (
-                0 => __DIR__ . '/..' . '/curl/curl/src',
-            ),
-        ),
     );
 
     public static $classMap = array (

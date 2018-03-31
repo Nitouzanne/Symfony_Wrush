@@ -49,7 +49,7 @@ services:
         arguments:
           -
             SET_KEY: '%api_key%'
-            SET_REGION: '%RegionApi%'
+            SET_REGION: '%regionApi%'
             SET_VERIFY_SSL: '%sslApi%'
 
 

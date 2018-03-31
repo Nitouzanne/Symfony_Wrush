@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Mapper\ChampionMapper;
+use AppBundle\Mapper\MatchSummonerMapper;
+use AppBundle\Mapper\SummonerInMatchMapper;
 use AppBundle\Mapper\SummonerMapper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
@@ -33,21 +35,22 @@ class DistantApiController extends Controller
     {
         $champion = $mapper->getChampionData();
 
-        return new JsonResponse([
+        /**return new JsonResponse([
             "Id" => $champion->getId(),
-            "Name" => $champion->getName(),
-        ]);
+            "Name" => $champion->getName()
+        ]);*/
+        return $this->json(array('Name' => $champion->getName()));
     }
 
     /**
-     * @param $game
+     * @param $pseudo
      * @param Request $request
      *
      * @return JsonResponse
      *
      * @Route("/summonerName/{pseudo}", name="Summoner")
      */
-    public function playerAction( Request $request, SummonerMapper $mapper, $pseudo)
+    public function playerAction( Request $request, SummonerMapper $mapper, MatchSummonerMapper $map, SummonerInMatchMapper $mappe, $pseudo)
     {
         $region = $request->get('region', Region::EUROPE_WEST);
 
@@ -56,17 +59,27 @@ class DistantApiController extends Controller
         }
 
         $summoner = $mapper->getPlayerData($pseudo, $region);
-        $daterevision = date("d-m-Y", $summoner->getRevisionDate());
+        $accountId = $summoner->getAccountId();
+        $matchSummoner = $map->getMatchData($accountId);
+        $summonerInMatch = $mappe->getSummonerInMatchData($accountId);
+        $daterevision = date("m-d-Y", $summoner->getRevisionDate()/1000);
 
         return new JsonResponse([
             "level" => $summoner->getLevel(),
             "pseudo" => $summoner->getSummonerName(),
             "account_id" => $summoner->getAccountId(),
             "profil_icon_id" => $summoner->getProfilIconId(),
-            "Derniere mise à jour" => $daterevision,
+            "Derniere mise a jour" => $daterevision,
             "TierSeason atteint" => $summoner->getHighestAchievedSeasonTier(),
             "League Points" => $summoner->getLeaguePoints(),
-
+            "dernier Match" => $matchSummoner->getGameCreation(),
+            "le type" => $matchSummoner->getGameType(),
+            "joué avec " => $matchSummoner->getParticipantsIdentities(),
+            "role " => $summonerInMatch->getRole(),
+            " score " => $summonerInMatch->getWin(),
+            " enemis tues" => $summonerInMatch->getKills(),
+            " tués" => $summonerInMatch->getDeaths(),
+            " a porte assistance" => $summonerInMatch->getAssists(),
         ]);
     }
 

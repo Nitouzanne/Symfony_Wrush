@@ -56,6 +56,7 @@ class SummonerInMatchMapper
             foreach ($partData2 as $keys => $values){
                 $stats = $values->stats;
                 $summonerInMatch = new SummonerInMatch();
+                $summonerInMatch->setId($value->gameId);
                 $summonerInMatch->setRole($value->role);
                 $summonerInMatch->setWin($stats->win);
                 $summonerInMatch->setKills($stats->kills);

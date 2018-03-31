@@ -53,6 +53,7 @@ class MatchSummonerMapper
             $matchId = $value->gameId;
             $dataMatch = $this->api->getMatch($matchId);
             $matchSummoner = new MatchSummoner();
+            $matchSummoner->setId($dataMatch->gameId);
             $matchSummoner->setGameCreation($dataMatch->gameCreation);
             $matchSummoner->setParticipantsIdentities($dataMatch->participantIdentities);
             $matchSummoner->setGameType($dataMatch->gameType);
