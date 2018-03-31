@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Champion
@@ -13,15 +14,20 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ChampionRepository")
  *
  * @ApiResource(
+ *     attributes={
+ *         "normalization_context"={"groups"={"get"}}
+ *     },
+ *     itemOperations={
+ *          "get"={"method"="GET"}
+ *     },
  *     collectionOperations={"get"={"method"="GET"}},
- *     itemOperations={"get"={"method"="GET"}}
  *     )
  */
 class Champion
 {
     /**
      * @var int
-     *
+     * @Groups("get")
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -30,7 +36,7 @@ class Champion
 
     /**
      * @var string
-     *
+     * @Groups("get")
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank
      */

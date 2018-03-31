@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Champion;
+use AppBundle\Entity\Summoner;
 use AppBundle\Mapper\ChampionMapper;
 use AppBundle\Mapper\MatchSummonerMapper;
 use AppBundle\Mapper\SummonerInMatchMapper;
@@ -35,11 +37,10 @@ class DistantApiController extends Controller
     {
         $champion = $mapper->getChampionData();
 
-        /**return new JsonResponse([
-            "Id" => $champion->getId(),
-            "Name" => $champion->getName()
-        ]);*/
-        return $this->json(array('Name' => $champion->getName()));
+        $champ = $this->getDoctrine()->getRepository(Champion::class)->findAll();
+        $rep = $this->get('serializer')->serialize($champ, 'json');
+
+        return JsonResponse::fromJsonString($rep);
     }
 
     /**
@@ -64,23 +65,11 @@ class DistantApiController extends Controller
         $summonerInMatch = $mappe->getSummonerInMatchData($accountId);
         $daterevision = date("m-d-Y", $summoner->getRevisionDate()/1000);
 
-        return new JsonResponse([
-            "level" => $summoner->getLevel(),
-            "pseudo" => $summoner->getSummonerName(),
-            "account_id" => $summoner->getAccountId(),
-            "profil_icon_id" => $summoner->getProfilIconId(),
-            "Derniere mise a jour" => $daterevision,
-            "TierSeason atteint" => $summoner->getHighestAchievedSeasonTier(),
-            "League Points" => $summoner->getLeaguePoints(),
-            "dernier Match" => $matchSummoner->getGameCreation(),
-            "le type" => $matchSummoner->getGameType(),
-            "joué avec " => $matchSummoner->getParticipantsIdentities(),
-            "role " => $summonerInMatch->getRole(),
-            " score " => $summonerInMatch->getWin(),
-            " enemis tues" => $summonerInMatch->getKills(),
-            " tués" => $summonerInMatch->getDeaths(),
-            " a porte assistance" => $summonerInMatch->getAssists(),
-        ]);
+        $sum = $this->getDoctrine()->getRepository(Summoner::class)->findAll();
+        $rep = $this->get('serializer')->serialize($sum, 'json');
+
+        return JsonResponse::fromJsonString($rep);
+
     }
 
 }

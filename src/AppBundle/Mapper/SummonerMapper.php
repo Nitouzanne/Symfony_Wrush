@@ -73,7 +73,7 @@ class SummonerMapper
         foreach($dataLeague as $keyd => $valoue){
             $summoner = new Summoner();
             $summoner->setLeaguePoints($valoue->leaguePoints);
-            $summoner->setHighestAchievedSeasonTier($valoue->leagueName);
+            $summoner->setHighestAchievedSeasonTier($valoue->tier);
             $this->em->persist($summoner);
             $this->em->flush();
         }
