@@ -38,7 +38,7 @@ class MatchSummoner
     /**
      * @var int
      *
-     * @ORM\Column(name="gameCreation", type="integer")
+     * @ORM\Column(name="gameCreation", type="bigint")
      */
     private $gameCreation;
 

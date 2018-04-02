@@ -78,7 +78,7 @@ class SummonerInMatch
     private $summoner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs")
+     * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs", cascade={"persist"})
      */
     private $matchSummoner;
 

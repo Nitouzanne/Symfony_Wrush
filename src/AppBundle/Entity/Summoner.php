@@ -85,7 +85,7 @@ class Summoner
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="summoner")
+     * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="summoner", cascade={"persist"})
      */
     private $summonerInMatchs;
 
