@@ -46,7 +46,9 @@ class DistantApiController extends Controller
     /**
      * @param $pseudo
      * @param Request $request
-     *
+     * @param SummonerMapper $mapper
+     * @param MatchSummonerMapper $map
+     * @param SummonerInMatchMapper $mappe
      * @return JsonResponse
      *
      * @Route("/summonerName/{pseudo}", name="Summoner")

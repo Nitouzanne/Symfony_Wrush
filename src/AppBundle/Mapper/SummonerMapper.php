@@ -53,29 +53,27 @@ class SummonerMapper
         $accountId = $data->accountId;
         $summonerId = $data->id;
         $dataMatchList = $this->api->getMatchlistByAccount($accountId);
+        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
 
         $matchLis = $dataMatchList->matches;
         foreach($matchLis as $key => $value){
             $partData = $this->api->getMatch($value->gameId);
             $parData = $partData->participants;
             foreach ($parData as $keys => $values){
-                $summoner = new Summoner();
-                $summoner->setLevel($data->summonerLevel);
-                $summoner->setSummonerName($data->name);
-                $summoner->setAccountId($data->accountId);
-                $summoner->setProfilIconId($data->profileIconId);
-                $summoner->setRevisionDate($data->revisionDate);
-                $this->em->persist($summoner);
-                $this->em->flush();
+                foreach($dataLeague as $keyd => $valoue) {
+                    $summoner = new Summoner();
+                    $summoner->setLevel($data->summonerLevel);
+                    $summoner->setSummonerName($data->name);
+                    $summoner->setAccountId($data->accountId);
+                    $summoner->setProfilIconId($data->profileIconId);
+                    $summoner->setRevisionDate($data->revisionDate);
+                    $summoner->setLeaguePoints($valoue->leaguePoints);
+                    $summoner->setHighestAchievedSeasonTier($valoue->leagueName);
+
+                    $this->em->persist($summoner);
+                    $this->em->flush();
+                }
             }
-        }
-        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
-        foreach($dataLeague as $keyd => $valoue){
-            $summoner = new Summoner();
-            $summoner->setLeaguePoints($valoue->leaguePoints);
-            $summoner->setHighestAchievedSeasonTier($valoue->tier);
-            $this->em->persist($summoner);
-            $this->em->flush();
         }
 
         //$partData2 = $partData->participants[]->stats;

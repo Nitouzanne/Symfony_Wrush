@@ -55,7 +55,7 @@ class MatchSummonerMapper
             $matchSummoner = new MatchSummoner();
             $matchSummoner->setGameCreation($dataMatch->gameCreation);
             $matchSummoner->setParticipantsIdentities($dataMatch->participantIdentities);
-            $matchSummoner->setGameType($dataMatch->gameType);
+            $matchSummoner->setGameType($dataMatch->gameMode);
             $this->em->persist($matchSummoner);
             $this->em->flush();
         }
