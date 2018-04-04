@@ -43,6 +43,11 @@ class Champion
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="champion")
+     */
+    private $summonerInMatchs;
+
+    /**
      * Set id
      *
      * @param int $id
@@ -89,4 +94,45 @@ class Champion
         return $this->name;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->summonerInMatchs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add summonerInMatch
+     *
+     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
+     *
+     * @return Champion
+     */
+    public function addSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch)
+    {
+        $this->summonerInMatchs[] = $summonerInMatch;
+
+        return $this;
+    }
+
+    /**
+     * Remove summonerInMatch
+     *
+     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
+     */
+    public function removeSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch)
+    {
+        $this->summonerInMatchs->removeElement($summonerInMatch);
+    }
+
+    /**
+     * Get summonerInMatchs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSummonerInMatchs()
+    {
+        return $this->summonerInMatchs;
+    }
 }

@@ -48,34 +48,29 @@ class SummonerMapper
         }
         $this->api->setTemporaryRegion($region);
 
-        $summoner = 0;
+
         $data = $this->api->getSummonerByName($name);
-        $accountId = $data->accountId;
         $summonerId = $data->id;
-        $dataMatchList = $this->api->getMatchlistByAccount($accountId);
-        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
 
-        $matchLis = $dataMatchList->matches;
-        foreach($matchLis as $key => $value){
-            $partData = $this->api->getMatch($value->gameId);
-            $parData = $partData->participants;
-            foreach ($parData as $keys => $values){
-                foreach($dataLeague as $keyd => $valoue) {
-                    $summoner = new Summoner();
-                    $summoner->setLevel($data->summonerLevel);
-                    $summoner->setSummonerName($data->name);
-                    $summoner->setAccountId($data->accountId);
-                    $summoner->setProfilIconId($data->profileIconId);
-                    $summoner->setRevisionDate($data->revisionDate);
-                    $summoner->setLeaguePoints($valoue->leaguePoints);
-                    $summoner->setHighestAchievedSeasonTier($valoue->leagueName);
-
-                    $this->em->persist($summoner);
-                    $this->em->flush();
-                }
-            }
+        $service = $this->em->getRepository(Summoner::class);
+        $summoner = $service->find($data->id);
+        if ($summoner == null){
+            $summoner = new Summoner();
+            $summoner->setId($data->id);
+            $summoner->setSummonerName($data->name);
+            $summoner->setLevel($data->summonerLevel);
+            $summoner->setAccountId($data->accountId);
+            $summoner->setProfilIconId($data->profileIconId);
+            $summoner->setRevisionDate(date("m-d-Y", $data->revisionDate/1000));
         }
 
+        //$summoner->setLeaguePoints($dataLeague->leaguePoints);
+        //$summoner->setSeasonTier($dataLeague->tier);
+        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
+        dump($dataLeague);
+
+        $this->em->persist($summoner);
+        $this->em->flush();
         //$partData2 = $partData->participants[]->stats;
         return $summoner;
     }

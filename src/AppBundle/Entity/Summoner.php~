@@ -23,7 +23,7 @@ class Summoner
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="bigint")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
@@ -68,14 +68,14 @@ class Summoner
     /**
      * @var string
      *
-     * @ORM\Column(name="SeasonTier", nullable=true, type="string")
+     * @ORM\Column(name="highestAchievedSeasonTier", nullable=true, type="string")
      */
-    private $SeasonTier;
+    private $highestAchievedSeasonTier;
 
     /**
-     * @var \DateTime
+     * @var int
      *
-     * @ORM\Column(name="revisionDate", type="datetime")
+     * @ORM\Column(name="revisionDate", type="bigint")
      */
     private $revisionDate;
 
@@ -235,33 +235,33 @@ class Summoner
     }
 
     /**
-     * Set SeasonTier
+     * Set highestAchievedSeasonTier
      *
-     * @param string $SeasonTier
+     * @param string $highestAchievedSeasonTier
      *
      * @return Summoner
      */
-    public function setSeasonTier($SeasonTier)
+    public function setHighestAchievedSeasonTier($highestAchievedSeasonTier)
     {
-        $this->SeasonTier= $SeasonTier;
+        $this->highestAchievedSeasonTier= $highestAchievedSeasonTier;
 
         return $this;
     }
 
     /**
-     * Get SeasonTier
+     * Get highestAchievedSeasonTier
      *
      * @return string
      */
-    public function getSeasonTier()
+    public function getHighestAchievedSeasonTier()
     {
-        return $this->SeasonTier;
+        return $this->highestAchievedSeasonTier;
     }
 
     /**
      * Set revisionDate
      *
-     * @param \DateTime $revisionDate
+     * @param integer $revisionDate
      *
      * @return Summoner
      */
@@ -275,76 +275,12 @@ class Summoner
     /**
      * Get revisionDate
      *
-     * @return \DateTime
+     * @return int
      */
     public function getRevisionDate()
     {
         return $this->revisionDate;
     }
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->summonerInMatchs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Summoner
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Add summonerInMatch
-     *
-     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
-     *
-     * @return Summoner
-     */
-    public function addSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch)
-    {
-        $this->summonerInMatchs[] = $summonerInMatch;
-
-        return $this;
-    }
-
-    /**
-     * Remove summonerInMatch
-     *
-     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
-     */
-    public function removeSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch)
-    {
-        $this->summonerInMatchs->removeElement($summonerInMatch);
-    }
-
-    /**
-     * Get summonerInMatchs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSummonerInMatchs()
-    {
-        return $this->summonerInMatchs;
-    }
 }
+

@@ -243,4 +243,80 @@ class User
     {
         return $this->createdAt;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->summoners = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add game
+     *
+     * @param \AppBundle\Entity\Game $game
+     *
+     * @return User
+     */
+    public function addGame(\AppBundle\Entity\Game $game)
+    {
+        $this->games[] = $game;
+
+        return $this;
+    }
+
+    /**
+     * Remove game
+     *
+     * @param \AppBundle\Entity\Game $game
+     */
+    public function removeGame(\AppBundle\Entity\Game $game)
+    {
+        $this->games->removeElement($game);
+    }
+
+    /**
+     * Get games
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
+
+    /**
+     * Add summoner
+     *
+     * @param \AppBundle\Entity\Summoner $summoner
+     *
+     * @return User
+     */
+    public function addSummoner(\AppBundle\Entity\Summoner $summoner)
+    {
+        $this->summoners[] = $summoner;
+
+        return $this;
+    }
+
+    /**
+     * Remove summoner
+     *
+     * @param \AppBundle\Entity\Summoner $summoner
+     */
+    public function removeSummoner(\AppBundle\Entity\Summoner $summoner)
+    {
+        $this->summoners->removeElement($summoner);
+    }
+
+    /**
+     * Get summoners
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSummoners()
+    {
+        return $this->summoners;
+    }
 }

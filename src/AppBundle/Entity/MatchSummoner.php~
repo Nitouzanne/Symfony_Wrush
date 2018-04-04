@@ -22,7 +22,7 @@ class MatchSummoner
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="bigint")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
@@ -36,9 +36,9 @@ class MatchSummoner
     private $gameType;
 
     /**
-     * @var \DateTime
+     * @var int
      *
-     * @ORM\Column(name="gameCreation", type="datetime")
+     * @ORM\Column(name="gameCreation", type="bigint")
      */
     private $gameCreation;
 
@@ -96,7 +96,7 @@ class MatchSummoner
     /**
      * Set gameCreation
      *
-     * @param \DateTime $gameCreation
+     * @param integer $gameCreation
      *
      * @return MatchSummoner
      */
@@ -110,7 +110,7 @@ class MatchSummoner
     /**
      * Get gameCreation
      *
-     * @return \DateTime
+     * @return int
      */
     public function getGameCreation()
     {
@@ -140,59 +140,5 @@ class MatchSummoner
     {
         return $this->participantsIdentities;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->summonerInMatchs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return MatchSummoner
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Add summonerInMatch
-     *
-     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
-     *
-     * @return MatchSummoner
-     */
-    public function addSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch)
-    {
-        $this->summonerInMatchs[] = $summonerInMatch;
-
-        return $this;
-    }
-
-    /**
-     * Remove summonerInMatch
-     *
-     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
-     */
-    public function removeSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch)
-    {
-        $this->summonerInMatchs->removeElement($summonerInMatch);
-    }
-
-    /**
-     * Get summonerInMatchs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSummonerInMatchs()
-    {
-        return $this->summonerInMatchs;
-    }
 }
+

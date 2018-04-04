@@ -36,7 +36,7 @@ class MatchSummonerMapper
      * @param int $accountId
      *
      * @param string $region
-     * @return matchSummoner
+     * @return MatchSummoner[]
      */
     public function getMatchData($accountId, $region = null)
     {
@@ -45,21 +45,30 @@ class MatchSummonerMapper
         }
         $this->api->setTemporaryRegion($region);
 
-        $matchSummoner = 0;
         $data = $this->api->getRecentMatchlistByAccount($accountId);
         $matchLis = $data->matches;
+        $service = $this->em->getRepository(MatchSummoner::class);
 
+        $matchs = [];
         foreach ($matchLis as $key => $value){
-            $matchId = $value->gameId;
-            $dataMatch = $this->api->getMatch($matchId);
-            $matchSummoner = new MatchSummoner();
-            $matchSummoner->setGameCreation($dataMatch->gameCreation);
-            $matchSummoner->setParticipantsIdentities($dataMatch->participantIdentities);
-            $matchSummoner->setGameType($dataMatch->gameMode);
-            $this->em->persist($matchSummoner);
-            $this->em->flush();
+            $match = $service->find($value->gameId);
+
+            if ($match == null) {
+                $match = new MatchSummoner();
+                $match->setId($value->gameId);
+
+                $matchApi = $this->api->getMatch($value->gameId);
+
+                $match->setGameType($matchApi->gameMode);
+                $match->setGameCreation(date("m-d-Y", $matchApi->gameCreation/1000));
+                $this->em->persist($match);
+            }
+
+            $matchs[] = $match;
         }
 
-        return $matchSummoner;
+        $this->em->flush();
+
+        return $matchs;
     }
 }

@@ -3,44 +3,63 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Champion
  *
  * @ORM\Table(name="champion")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ChampionRepository")
+ *
+ * @ApiResource(
+ *     attributes={
+ *         "normalization_context"={"groups"={"get"}}
+ *     },
+ *     itemOperations={
+ *          "get"={"method"="GET"}
+ *     },
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     )
  */
 class Champion
 {
     /**
      * @var int
-     *
+     * @Groups("get")
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
     /**
      * @var string
-     *
+     * @Groups("get")
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="champId", type="integer")
+     * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="champion")
      */
-    private $champId;
+    private $summonerInMatchs;
 
     /**
-     * @ORM\OneToOne(targetEntity="SummonerInMatch", inversedBy="champion")
-     * @ORM\JoinColumn(name="championId", referencedColumnName="champId")
+     * Set id
+     *
+     * @param int $id
+     *
+     * @return Champion
      */
-    private $summonerInMatch;
+    public function setId($id)
+    {
+        $this->id = $id;
 
+        return $this;
+    }
     /**
      * Get id
      *
@@ -52,12 +71,12 @@ class Champion
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Champion
-     */
+ * Set name
+ *
+ * @param string $name
+ *
+ * @return Champion
+ */
     public function setName($name)
     {
         $this->name = $name;
@@ -75,51 +94,4 @@ class Champion
         return $this->name;
     }
 
-    /**
-     * Set champId
-     *
-     * @param integer $champId
-     *
-     * @return Champion
-     */
-    public function setChampId($champId)
-    {
-        $this->champId = $champId;
-
-        return $this;
-    }
-
-    /**
-     * Get champId
-     *
-     * @return int
-     */
-    public function getChampId()
-    {
-        return $this->champId;
-    }
-
-    /**
-     * Set summonerInMatch
-     *
-     * @param \AppBundle\Entity\SummonerInMatch $summonerInMatch
-     *
-     * @return Champion
-     */
-    public function setSummonerInMatch(\AppBundle\Entity\SummonerInMatch $summonerInMatch = null)
-    {
-        $this->summonerInMatch = $summonerInMatch;
-
-        return $this;
-    }
-
-    /**
-     * Get summonerInMatch
-     *
-     * @return \AppBundle\Entity\SummonerInMatch
-     */
-    public function getSummonerInMatch()
-    {
-        return $this->summonerInMatch;
-    }
 }

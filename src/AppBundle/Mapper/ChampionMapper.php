@@ -46,15 +46,15 @@ class ChampionMapper
 
         $champion = 0;
         $data = $this->api->getStaticChampions();
-
+        $service = $this->em->getRepository(Champion::class);
             $champ = $data->data ;
             foreach ($champ as $keys => $val){
+                $champion = $service->find($val->id);
+                if ($champion == null) {
+                    $champion = new Champion();
+                    $champion->setId($val->id);
+                    $champion->setName($val->name);
 
-                $champion = new Champion();
-                $champion->setId($val->id);
-                $champion->setName($val->name);
-                $service = $this->em->getRepository(Champion::class)->find($champion);
-                if ($service!= $champion){
                     $this->em->persist($champion);
                     $this->em->flush();
                 }

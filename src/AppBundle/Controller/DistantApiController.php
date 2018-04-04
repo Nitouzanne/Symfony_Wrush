@@ -63,8 +63,12 @@ class DistantApiController extends Controller
 
         $summoner = $mapper->getPlayerData($pseudo, $region);
         $accountId = $summoner->getAccountId();
-        $matchSummoner = $map->getMatchData($accountId);
-        $summonerInMatch = $mappe->getSummonerInMatchData($accountId);
+        $matchSummoners = $map->getMatchData($accountId);
+
+        foreach ($matchSummoners as $matchSummoner) {
+            $mappe->getSummonerInMatchData($matchSummoner);
+        }
+
         $daterevision = date("m-d-Y", $summoner->getRevisionDate()/1000);
 
         $sum = $this->getDoctrine()->getRepository(Summoner::class)->findOneBy(array('summonerName' => $pseudo));

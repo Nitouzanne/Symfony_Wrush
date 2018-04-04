@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Mapper;
 
+use AppBundle\Entity\MatchSummoner;
 use AppBundle\Entity\SummonerInMatch;
 use Doctrine\ORM\EntityManagerInterface;
 use RiotAPI\Definitions\Region;
@@ -38,33 +39,35 @@ class SummonerInMatchMapper
      * @param string $region
      * @return summonerInMatch
      */
-    public function getSummonerInMatchData($accountId, $region = null)
+    public function getSummonerInMatchData(MatchSummoner $match, $region = null)
     {
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
         $this->api->setTemporaryRegion($region);
 
-        $summonerInMatch = 0;
-        $data = $this->api->getRecentMatchlistByAccount($accountId);
-        $matchLis = $data->matches;
+        $service = $this->em->getRepository(SummonerInMatch::class);
 
-        foreach ($matchLis as $key => $value){
-            $matchId = $value->gameId;
-            $partData = $this->api->getMatch($matchId);
+        $sumInMatchs = [];
+
+        foreach ($match as $key => $value){
+            $partData = $this->api->getMatch($match->getId());
             $partData2 = $partData->participants;
             foreach ($partData2 as $keys => $values){
                 $stats = $values->stats;
                 $summonerInMatch = new SummonerInMatch();
-                $summonerInMatch->setRole($value->role);
                 $summonerInMatch->setWin($stats->win);
                 $summonerInMatch->setKills($stats->kills);
                 $summonerInMatch->setDeaths($stats->deaths);
                 $summonerInMatch->setAssists($stats->assists);
                 $this->em->persist($summonerInMatch);
-                $this->em->flush();
+
+                $summonerInMatch->setMatchSummoner($match);
             }
         }
+
+
+        $this->em->flush();
         return $summonerInMatch;
     }
 }
