@@ -15,7 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *     collectionOperations={"get"={"method"="GET"}},
- *     itemOperations={"get"={"method"="GET"}}
+ *     itemOperations={
+ *          "get"={"method"="GET"},
+ *          "by_name"={
+ *              "method"="GET",
+ *              "path"="/summoners/{name}/by-name"
+ *          }
+ *     }
  *     )
  */
 class Summoner

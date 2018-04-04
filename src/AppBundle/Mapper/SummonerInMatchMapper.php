@@ -2,6 +2,7 @@
 namespace AppBundle\Mapper;
 
 use AppBundle\Entity\MatchSummoner;
+use AppBundle\Entity\Summoner;
 use AppBundle\Entity\SummonerInMatch;
 use Doctrine\ORM\EntityManagerInterface;
 use RiotAPI\Definitions\Region;
@@ -37,9 +38,9 @@ class SummonerInMatchMapper
      * @param int $accountId
      *
      * @param string $region
-     * @return summonerInMatch
+     * @return SummonerInMatch|null
      */
-    public function getSummonerInMatchData(MatchSummoner $match, $region = null)
+    public function getSummonerInMatchData(MatchSummoner $match, Summoner $summoner, $region = null)
     {
         if (null === $region) {
             $region = Region::EUROPE_WEST;
@@ -48,26 +49,34 @@ class SummonerInMatchMapper
 
         $service = $this->em->getRepository(SummonerInMatch::class);
 
-        $sumInMatchs = [];
+        $sumInMatch = null;
+        $partData = $this->api->getMatch($match->getId());
+        foreach ($partData->participantIdentities as $keys => $values) {
+            if ($values->player->summonerId == $summoner->getId()) {
+                $sta = $partData->participants;
+                foreach ($sta as $keyd => $valu){
+                    if ($values->participantId == $valu->participantId){
+                        $ro = $valu->timeline;
+                        $stats = $valu->stats;
+                        $sumInMatch = new SummonerInMatch();
+                        $sumInMatch->setRole($ro->role);
+                        $sumInMatch->setWin($stats->win);
+                        $sumInMatch->setKills($stats->kills);
+                        $sumInMatch->setDeaths($stats->deaths);
+                        $sumInMatch->setAssists($stats->assists);
+                        $sumInMatch->setMatchSummoner($match);
+                        $sumInMatch->setSummoner($summoner);
+                        $this->em->persist($sumInMatch);
+                    }
+                }
 
-        foreach ($match as $key => $value){
-            $partData = $this->api->getMatch($match->getId());
-            $partData2 = $partData->participants;
-            foreach ($partData2 as $keys => $values){
-                $stats = $values->stats;
-                $summonerInMatch = new SummonerInMatch();
-                $summonerInMatch->setWin($stats->win);
-                $summonerInMatch->setKills($stats->kills);
-                $summonerInMatch->setDeaths($stats->deaths);
-                $summonerInMatch->setAssists($stats->assists);
-                $this->em->persist($summonerInMatch);
 
-                $summonerInMatch->setMatchSummoner($match);
+
             }
         }
-
-
         $this->em->flush();
-        return $summonerInMatch;
+
+        return $sumInMatch;
+
     }
 }

@@ -66,10 +66,8 @@ class DistantApiController extends Controller
         $matchSummoners = $map->getMatchData($accountId);
 
         foreach ($matchSummoners as $matchSummoner) {
-            $mappe->getSummonerInMatchData($matchSummoner);
+            $mappe->getSummonerInMatchData($matchSummoner, $summoner);
         }
-
-        $daterevision = date("m-d-Y", $summoner->getRevisionDate()/1000);
 
         $sum = $this->getDoctrine()->getRepository(Summoner::class)->findOneBy(array('summonerName' => $pseudo));
         $rep = $this->get('serializer')->serialize($sum, 'json');
