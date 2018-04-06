@@ -7,7 +7,7 @@ use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
 use AppBundle\Entity\Summoner;
 use AppBundle\Entity\SummonerInMatch;
 use AppBundle\Entity\MatchSummoner;
-use 
+use Symfony\Component\HttpFoundation\RequestStack;
 
 final class SummonerDataProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
