@@ -11,11 +11,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *
  * @ORM\Table(name="summoner_in_match")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerInMatchRepository")
- *
- * @ApiResource(
- *     collectionOperations={"get"={"method"="GET"}},
- *     itemOperations={"get"={"method"="GET"}}
- *     )
  */
 class SummonerInMatch
 {
@@ -64,12 +59,11 @@ class SummonerInMatch
     private $assists;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Champion", inversedBy="champions", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Champion", inversedBy="summonerInMatchs", cascade={"persist"})
      */
     private $champion;
 
     /** @ORM\ManyToOne (targetEntity ="Summoner", inversedBy ="summonerInMatchs")
-     *  @ORM\JoinColumn (name="summoner_id ", referencedColumnName ="id")
      */
     private $summoner;
 

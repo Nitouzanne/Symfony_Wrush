@@ -19,7 +19,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "get"={"method"="GET"},
  *          "by_name"={
  *              "method"="GET",
- *              "path"="/summoners/{name}/by-name"
+ *              "path"="/summoners/{name}/by-name",
+ *              "swagger_context" = {
+ *                  "parameters" = {
+ *                      {
+ *                          "name" = "name",
+ *                          "required" = true,
+ *                          "type" = "string",
+ *                          "in" = "path",
+ *                          "description" = "The summoner's name."
+ *                      }
+ *                  }
+ *              }
  *          }
  *     }
  *     )
@@ -85,8 +96,8 @@ class Summoner
      */
     private $revisionDate;
 
-    /** @ORM\ManyToOne (targetEntity="User", inversedBy="summoners")
-     *  @ORM\JoinColumn (name="user_id", referencedColumnName="id")
+    /**
+     * @ORM\ManyToOne (targetEntity="User", inversedBy="summoners")
      */
     private $user;
 

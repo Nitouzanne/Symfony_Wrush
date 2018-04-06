@@ -60,9 +60,7 @@ class SummonerInMatchMapper
                         $ro = $valu->timeline;
                         $stats = $valu->stats;
 
-                        $match = $service->find($values->player->summonerId);
-
-                        if($match == null  && $match->getId() == null) {
+                        if(null == $sumInMatch = $service->find($values->player->summonerId)) {
                             $sumInMatch = new SummonerInMatch();
                             $sumInMatch->setRole($ro->role);
                             $sumInMatch->setWin($stats->win);

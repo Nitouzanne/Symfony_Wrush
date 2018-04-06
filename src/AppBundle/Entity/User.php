@@ -70,11 +70,11 @@ class User
      */
     private $createdAt;
 
-    /**
+    /*
      * @ORM\ManyToMany(targetEntity="Game")
      * @ORM\JoinTable(name="users_games",
-     *     joinColumns={@ORM\JoinColumn (name="user_id ", referencedColumnName ="id")},
-     *     inverseJoinColumns ={ @ORM\JoinColumn (name ="game_id ", referencedColumnName ="id")}
+     *     joinColumns={@ORM\JoinColumn (name="user_id", referencedColumnName ="id")},
+     *     inverseJoinColumns ={ @ORM\JoinColumn (name ="game_id", referencedColumnName ="id")}
      * )
      */
     private $games;

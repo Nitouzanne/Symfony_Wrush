@@ -40,11 +40,11 @@ services:
     AppBundle\Mapper\MapperInterface: '@AppBundle\Mapper\MatchSummonerMapper'
     AppBundle\Mapper\MapperInterface: '@AppBundle\Mapper\ChampionMapper'
 
-    AppBundle\Repository\UserRepository:
-        factory: 'doctrine.orm.entity_manager:getRepository'
-        arguments: ['AppBundle\Entity\User']
+#    AppBundle\Repository\UserRepository:
+#        factory: 'doctrine.orm.entity_manager:getRepository'
+#        arguments: ['AppBundle\Entity\User']
 
-    AppBundle\DataProvider:
+    AppBundle\DataProvider\:
         resource: '../../src/AppBundle/DataProvider'
         tags: [ 'api_platform.item_data_provider' ]
 
