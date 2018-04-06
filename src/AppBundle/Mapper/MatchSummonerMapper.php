@@ -60,7 +60,7 @@ class MatchSummonerMapper
                 $matchApi = $this->api->getMatch($value->gameId);
 
                 $match->setGameType($matchApi->gameMode);
-                $match->setGameCreation(date("m-d-Y", $matchApi->gameCreation/1000));
+                $match->setGameCreation(new \DateTime(date('d-m-Y', $matchApi->gameCreation/1000)));
                 $this->em->persist($match);
             }
 

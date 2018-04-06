@@ -44,6 +44,10 @@ services:
         factory: 'doctrine.orm.entity_manager:getRepository'
         arguments: ['AppBundle\Entity\User']
 
+    AppBundle\DataProvider:
+        resource: '../../src/AppBundle/DataProvider'
+        tags: [ 'api_platform.item_data_provider' ]
+
     RiotAPI\RiotAPI:
         public: true
         arguments:
@@ -51,6 +55,7 @@ services:
             SET_KEY: '%api_key%'
             SET_REGION: '%regionApi%'
             SET_VERIFY_SSL: '%sslApi%'
+
 
 
 

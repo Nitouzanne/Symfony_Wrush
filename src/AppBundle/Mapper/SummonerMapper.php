@@ -61,13 +61,12 @@ class SummonerMapper
             $summoner->setLevel($data->summonerLevel);
             $summoner->setAccountId($data->accountId);
             $summoner->setProfilIconId($data->profileIconId);
-            $summoner->setRevisionDate(date("m-d-Y", $data->revisionDate/1000));
+            $summoner->setRevisionDate(new \DateTime(date('d-m-Y', $data->revisionDate/1000)));
         }
 
         //$summoner->setLeaguePoints($dataLeague->leaguePoints);
         //$summoner->setSeasonTier($dataLeague->tier);
-        $dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
-        dump($dataLeague);
+        //$dataLeague = $this->api->getLeaguePositionsForSummoner($summonerId);
 
         $this->em->persist($summoner);
         $this->em->flush();

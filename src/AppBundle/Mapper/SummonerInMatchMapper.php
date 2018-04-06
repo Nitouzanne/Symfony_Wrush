@@ -49,6 +49,7 @@ class SummonerInMatchMapper
 
         $service = $this->em->getRepository(SummonerInMatch::class);
 
+
         $sumInMatch = null;
         $partData = $this->api->getMatch($match->getId());
         foreach ($partData->participantIdentities as $keys => $values) {
@@ -58,20 +59,22 @@ class SummonerInMatchMapper
                     if ($values->participantId == $valu->participantId){
                         $ro = $valu->timeline;
                         $stats = $valu->stats;
-                        $sumInMatch = new SummonerInMatch();
-                        $sumInMatch->setRole($ro->role);
-                        $sumInMatch->setWin($stats->win);
-                        $sumInMatch->setKills($stats->kills);
-                        $sumInMatch->setDeaths($stats->deaths);
-                        $sumInMatch->setAssists($stats->assists);
-                        $sumInMatch->setMatchSummoner($match);
-                        $sumInMatch->setSummoner($summoner);
-                        $this->em->persist($sumInMatch);
+
+                        $match = $service->find($values->player->summonerId);
+
+                        if($match == null  && $match->getId() == null) {
+                            $sumInMatch = new SummonerInMatch();
+                            $sumInMatch->setRole($ro->role);
+                            $sumInMatch->setWin($stats->win);
+                            $sumInMatch->setKills($stats->kills);
+                            $sumInMatch->setDeaths($stats->deaths);
+                            $sumInMatch->setAssists($stats->assists);
+                            $sumInMatch->setMatchSummoner($match);
+                            $sumInMatch->setSummoner($summoner);
+                            $this->em->persist($sumInMatch);
+                        }
                     }
                 }
-
-
-
             }
         }
         $this->em->flush();
