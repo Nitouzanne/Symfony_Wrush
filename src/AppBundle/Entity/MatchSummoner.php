@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * MatchSummoner
@@ -24,6 +25,7 @@ class MatchSummoner
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     * @Groups({"Summoner"})
      */
     private $id;
 
@@ -31,6 +33,7 @@ class MatchSummoner
      * @var string
      *
      * @ORM\Column(name="gameType", type="string", length=255)
+     * @Groups({"Summoner"})
      */
     private $gameType;
 
@@ -38,6 +41,7 @@ class MatchSummoner
      * @var \DateTime
      *
      * @ORM\Column(name="gameCreation", type="datetime")
+     * @Groups({"Summoner"})
      */
     private $gameCreation;
 
@@ -45,11 +49,13 @@ class MatchSummoner
      * @var array
      *
      * @ORM\Column(name="participantsIdentities", type="array")
+     * @Groups({"Summoner"})
      */
     private $participantsIdentities;
 
     /**
      * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="matchSummoner")
+     * @ApiSubResource(maxDepth=1)
      */
     private $summonerInMatchs;
 

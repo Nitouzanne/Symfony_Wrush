@@ -8,13 +8,16 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * SummonerInMatch
  *
  * @ORM\Table(name="summoner_in_match")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerInMatchRepository")
- * @ApiResource
+ * @ApiResource(
+ *     attributes={"normalization_context"={"groups"={"SummonerInMatch"}}}
+ * )
  */
 class SummonerInMatch
 {
@@ -24,6 +27,7 @@ class SummonerInMatch
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"Summoner"})
      */
     private $id;
 
@@ -31,6 +35,7 @@ class SummonerInMatch
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=255)
+     * @Groups({"Summoner"})
      */
     private $role;
 
@@ -38,6 +43,7 @@ class SummonerInMatch
      * @var bool
      *
      * @ORM\Column(name="win", type="boolean", length=255)
+     * @Groups({"Summoner"})
      */
     private $win;
 
@@ -45,6 +51,7 @@ class SummonerInMatch
      * @var int
      *
      * @ORM\Column(name="kills", type="integer")
+     * @Groups({"Summoner"})
      */
     private $kills;
 
@@ -52,6 +59,7 @@ class SummonerInMatch
      * @var int
      *
      * @ORM\Column(name="deaths", type="integer")
+     * @Groups({"Summoner"})
      */
     private $deaths;
 
@@ -59,12 +67,14 @@ class SummonerInMatch
      * @var int
      *
      * @ORM\Column(name="assists", type="integer")
+     * @Groups({"Summoner"})
      */
     private $assists;
 
     /**
      * @ORM\ManyToOne(targetEntity="Champion", inversedBy="summonerInMatchs", cascade={"persist"})
      * @ApiSubResource(maxDepth=1)
+     * @Groups({"Summoner"})
      */
     private $champion;
 
@@ -77,6 +87,7 @@ class SummonerInMatch
     /**
      * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs", cascade={"persist"})
      * @ApiSubResource(maxDepth=1)
+     * @Groups({"Summoner"})
      */
     private $matchSummoner;
 

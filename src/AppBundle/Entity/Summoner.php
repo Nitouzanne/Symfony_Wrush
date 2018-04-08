@@ -9,6 +9,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Summoner
@@ -32,10 +34,11 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *                          "in" = "path",
  *                          "description" = "The summoner's name."
  *                      }
- *                  }
+ *                   }
  *              }
- *          }
- *     }
+ *            }
+ *     },
+ *     attributes={"normalization_context"={"groups"={"Summoner"}}}
  *     )
  */
 class Summoner
@@ -46,6 +49,7 @@ class Summoner
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     * @Groups({"Summoner"})
      */
     private $id;
 
@@ -54,6 +58,7 @@ class Summoner
      *
      * @ORM\Column(name="summonerName", type="string", length=255)
      * @Assert\NotBlank
+     * @Groups({"Summoner"})
      */
     private $summonerName;
 
@@ -61,6 +66,7 @@ class Summoner
      * @var int
      *
      * @ORM\Column(name="AccountId", type="integer")
+     * @Groups({"Summoner"})
      */
     private $accountId;
 
@@ -68,6 +74,7 @@ class Summoner
      * @var string
      *
      * @ORM\Column(name="profilIconId", type="string", length=255)
+     * @Groups({"Summoner"})
      */
     private $profilIconId;
 
@@ -75,6 +82,7 @@ class Summoner
      * @var int
      *
      * @ORM\Column(name="Level", type="integer")
+     * @Groups({"Summoner"})
      */
     private $level;
 
@@ -82,6 +90,7 @@ class Summoner
      * @var int
      *
      * @ORM\Column(name="leaguePoints", nullable=true, type="integer")
+     * @Groups({"Summoner"})
      */
     private $leaguePoints;
 
@@ -89,6 +98,7 @@ class Summoner
      * @var string
      *
      * @ORM\Column(name="SeasonTier", nullable=true, type="string")
+     * @Groups({"Summoner"})
      */
     private $SeasonTier;
 
@@ -96,6 +106,7 @@ class Summoner
      * @var \DateTime
      *
      * @ORM\Column(name="revisionDate", type="datetime")
+     * @Groups({"Summoner"})
      */
     private $revisionDate;
 
@@ -106,6 +117,7 @@ class Summoner
 
     /**
      * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="summoner", cascade={"persist"})
+     * @Groups({"Summoner"})
      * @ApiSubResource(maxDepth=2)
      */
     private $summonerInMatchs;
