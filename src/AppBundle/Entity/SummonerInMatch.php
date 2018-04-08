@@ -69,6 +69,7 @@ class SummonerInMatch
 
     /**
      * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs", cascade={"persist"})
+     * @MaxDepth(0)
      */
     private $matchSummoner;
 

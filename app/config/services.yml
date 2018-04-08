@@ -47,6 +47,7 @@ services:
     AppBundle\DataProvider\:
         resource: '../../src/AppBundle/DataProvider'
         tags: [ 'api_platform.item_data_provider' ]
+        tags: [ { name: 'api_platform.collection_data_provider' } ]
 
     RiotAPI\RiotAPI:
         public: true

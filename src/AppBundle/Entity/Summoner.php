@@ -103,6 +103,7 @@ class Summoner
 
     /**
      * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="summoner", cascade={"persist"})
+     * @MaxDepth(1)
      */
     private $summonerInMatchs;
 
