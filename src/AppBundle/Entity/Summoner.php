@@ -4,8 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Summoner
@@ -103,7 +106,7 @@ class Summoner
 
     /**
      * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="summoner", cascade={"persist"})
-     * @MaxDepth(1)
+     * @ApiSubResource(maxDepth=2)
      */
     private $summonerInMatchs;
 

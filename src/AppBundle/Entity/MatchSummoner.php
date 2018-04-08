@@ -4,18 +4,17 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * MatchSummoner
  *
  * @ORM\Table(name="match_summoner")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MatchSummonerRepository")
- *
- * @ApiResource(
- *     collectionOperations={"get"={"method"="GET"}},
- *     itemOperations={"get"={"method"="GET"}}
- *     )
+ * @ApiResource
  */
 class MatchSummoner
 {

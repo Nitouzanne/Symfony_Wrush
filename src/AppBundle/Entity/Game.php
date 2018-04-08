@@ -11,10 +11,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Table(name="game")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GameRepository")
  *
- * @ApiResource(
- *     collectionOperations={"get"={"method"="GET"}},
- *     itemOperations={"get"={"method"="GET"}}
- *     )
  */
 class Game
 {

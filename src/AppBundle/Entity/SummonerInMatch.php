@@ -4,13 +4,17 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * SummonerInMatch
  *
  * @ORM\Table(name="summoner_in_match")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerInMatchRepository")
+ * @ApiResource
  */
 class SummonerInMatch
 {
@@ -60,16 +64,19 @@ class SummonerInMatch
 
     /**
      * @ORM\ManyToOne(targetEntity="Champion", inversedBy="summonerInMatchs", cascade={"persist"})
+     * @ApiSubResource(maxDepth=1)
      */
     private $champion;
 
-    /** @ORM\ManyToOne (targetEntity ="Summoner", inversedBy ="summonerInMatchs")
+    /**
+     *  @ORM\ManyToOne (targetEntity ="Summoner", inversedBy ="summonerInMatchs")
+     *  @ApiSubResource(maxDepth=1)
      */
     private $summoner;
 
     /**
      * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs", cascade={"persist"})
-     * @MaxDepth(0)
+     * @ApiSubResource(maxDepth=1)
      */
     private $matchSummoner;
 
