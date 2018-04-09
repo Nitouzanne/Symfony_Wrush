@@ -44,7 +44,7 @@ final class ChampionDataProvider implements CollectionDataProviderInterface, Res
         // Retrieve the blog post collection from somewhere
 
         $champion = $this->mapper->getChampionData();
-        
+
         return $this->em->getRepository(Champion::class)->findAll();
     }
 }

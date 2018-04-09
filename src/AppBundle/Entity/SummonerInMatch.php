@@ -16,8 +16,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="summoner_in_match")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerInMatchRepository")
  * @ApiResource(
- *     attributes={"normalization_context"={"groups"={"SummonerInMatch"}}}
- * )
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}}
+ *     )
  */
 class SummonerInMatch
 {
