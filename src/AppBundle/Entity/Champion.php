@@ -15,7 +15,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ApiResource(
  *     attributes={
- *         "normalization_context"={"groups"={"champion"}}
+ *         "normalization_context"={"groups"={"champion"}},
+ *         "pagination_enabled"=false
  *     },
  *     itemOperations={
  *          "get"={"method"="GET"}

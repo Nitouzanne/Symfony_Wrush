@@ -79,7 +79,8 @@ nelmio_cors:
 
 api_platform:
     formats:
-      html:
-        mime_types: ['text/html']
       json:
         mime_types: ['application/json']
+      html:
+        mime_types: ['text/html']
+

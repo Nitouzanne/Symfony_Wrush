@@ -15,10 +15,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\Table(name="summoner_in_match")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerInMatchRepository")
- * @ApiResource(
- *     collectionOperations={"get"={"method"="GET"}},
- *     itemOperations={"get"={"method"="GET"}}
- *     )
  */
 class SummonerInMatch
 {
@@ -82,20 +78,17 @@ class SummonerInMatch
 
     /**
      * @ORM\ManyToOne(targetEntity="Champion", inversedBy="summonerInMatchs", cascade={"persist"})
-     * @ApiSubResource(maxDepth=1)
      * @Groups({"Summoner"})
      */
     private $champion;
 
     /**
      *  @ORM\ManyToOne (targetEntity ="Summoner", inversedBy ="summonerInMatchs")
-     *  @ApiSubResource(maxDepth=1)
      */
     private $summoner;
 
     /**
      * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs", cascade={"persist"})
-     * @ApiSubResource(maxDepth=1)
      * @Groups({"Summoner"})
      */
     private $matchSummoner;

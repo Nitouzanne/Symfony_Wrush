@@ -48,11 +48,20 @@ class SummonerMapper
         }
         $this->api->setTemporaryRegion($region);
 
+        $service = $this->em->getRepository(Summoner::class);
+
+        /////////////////
+        return $service->findOneBy(['summonerName' => $name]);
+        //////////
+
+
+
+
 
         $data = $this->api->getSummonerByName($name);
         $summonerId = $data->id;
 
-        $service = $this->em->getRepository(Summoner::class);
+
         $summoner = $service->find($data->id);
         if ($summoner == null){
             $summoner = new Summoner();

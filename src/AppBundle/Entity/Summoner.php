@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SummonerRepository")
  *
  * @ApiResource(
- *     collectionOperations={"get"={"method"="GET"}},
+ *     collectionOperations={},
  *     itemOperations={
  *          "get"={"method"="GET"},
  *          "by_name"={
@@ -118,7 +118,6 @@ class Summoner
     /**
      * @ORM\OneToMany(targetEntity="SummonerInMatch", mappedBy="summoner", cascade={"persist"})
      * @Groups({"Summoner"})
-     * @ApiSubResource(maxDepth=2)
      */
     private $summonerInMatchs;
 
