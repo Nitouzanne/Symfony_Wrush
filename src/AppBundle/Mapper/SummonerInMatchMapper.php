@@ -61,7 +61,8 @@ class SummonerInMatchMapper
 
                         if(null == $sumInMatch = $service->find($values->player->summonerId)) {
                             $sumInMatch = new SummonerInMatch();
-                            $sumInMatch->setRole($ro->lane);
+                            $sumInMatch->setRole($ro->role);
+                            $sumInMatch->setLane($ro->lane);
                             $sumInMatch->setWin($stats->win);
                             $sumInMatch->setKills($stats->kills);
                             $sumInMatch->setDeaths($stats->deaths);

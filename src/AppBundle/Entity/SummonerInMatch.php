@@ -41,6 +41,14 @@ class SummonerInMatch
     private $role;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="lane", type="string", length=255)
+     * @Groups({"Summoner"})
+     */
+    private $lane;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="win", type="boolean", length=255)
@@ -134,6 +142,22 @@ class SummonerInMatch
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLane(): string
+    {
+        return $this->lane;
+    }
+
+    /**
+     * @param string $lane
+     */
+    public function setLane(string $lane)
+    {
+        $this->lane = $lane;
     }
 
     /**
