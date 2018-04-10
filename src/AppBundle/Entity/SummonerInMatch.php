@@ -79,6 +79,7 @@ class SummonerInMatch
     /**
      * @ORM\ManyToOne(targetEntity="Champion", inversedBy="summonerInMatchs", cascade={"persist"})
      * @Groups({"Summoner"})
+     * @MaxDepth(1)
      */
     private $champion;
 
@@ -90,6 +91,7 @@ class SummonerInMatch
     /**
      * @ORM\ManyToOne(targetEntity="MatchSummoner", inversedBy="summonerInMatchs", cascade={"persist"})
      * @Groups({"Summoner"})
+     * @MaxDepth(1)
      */
     private $matchSummoner;
 

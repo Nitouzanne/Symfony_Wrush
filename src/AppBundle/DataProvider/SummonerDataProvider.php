@@ -64,10 +64,6 @@ final class SummonerDataProvider implements ItemDataProviderInterface, Restricte
         $region = $request->get('region', Region::EUROPE_WEST);
 
         $summoner = $this->mapper->getPlayerData($name, $region);
-
-        //////////////////////
-        return $summoner;
-        //////////////////
         $accountId = $summoner->getAccountId();
         $matchSummoners = $this->map->getMatchData($accountId);
 
