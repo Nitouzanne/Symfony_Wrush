@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ApiResource(
  *     attributes={
- *         "normalization_context"={"groups"={"get"}}
+ *         "normalization_context"={"groups"={"champion"}}
  *     },
  *     itemOperations={
  *          "get"={"method"="GET"}
@@ -27,7 +27,6 @@ class Champion
 {
     /**
      * @var int
-     * @Groups("get")
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -36,9 +35,9 @@ class Champion
 
     /**
      * @var string
-     * @Groups("get")
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank
+     * @Groups({"champion","Summoner"})
      */
     private $name;
 

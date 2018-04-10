@@ -61,7 +61,7 @@ class SummonerMapper
             $summoner->setLevel($data->summonerLevel);
             $summoner->setAccountId($data->accountId);
             $summoner->setProfilIconId($data->profileIconId);
-            $summoner->setRevisionDate(new \DateTime(date('d-m-Y', $data->revisionDate/1000)));
+            $summoner->setRevisionDate(new \DateTime(date('d-m-Y H:i:s', $data->revisionDate/1000)));
         }
 
         //$summoner->setLeaguePoints($dataLeague->leaguePoints);

@@ -27,13 +27,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DistantApiController extends Controller
 {
     /**
-     * @param Request $request
      * @param ChampionMapper $mapper
      * @return JsonResponse
      *
      * @Route("/champions", name="champions")
      */
-    public function ChampionAction(Request $request, ChampionMapper $mapper)
+    public function ChampionAction(ChampionMapper $mapper)
     {
         $champion = $mapper->getChampionData();
 

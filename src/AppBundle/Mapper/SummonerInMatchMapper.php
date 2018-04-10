@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Mapper;
 
+use AppBundle\Entity\Champion;
 use AppBundle\Entity\MatchSummoner;
 use AppBundle\Entity\Summoner;
 use AppBundle\Entity\SummonerInMatch;
@@ -35,7 +36,6 @@ class SummonerInMatchMapper
     }
 
     /**
-     * @param int $accountId
      *
      * @param string $region
      * @return SummonerInMatch|null
@@ -48,7 +48,6 @@ class SummonerInMatchMapper
         $this->api->setTemporaryRegion($region);
 
         $service = $this->em->getRepository(SummonerInMatch::class);
-
 
         $sumInMatch = null;
         $partData = $this->api->getMatch($match->getId());
@@ -68,6 +67,7 @@ class SummonerInMatchMapper
                             $sumInMatch->setDeaths($stats->deaths);
                             $sumInMatch->setAssists($stats->assists);
                             $sumInMatch->setMatchSummoner($match);
+                            $sumInMatch->setChampion($this->em->getRepository(Champion::class)->find($valu->championId));
                             $sumInMatch->setSummoner($summoner);
                             $this->em->persist($sumInMatch);
                         }
