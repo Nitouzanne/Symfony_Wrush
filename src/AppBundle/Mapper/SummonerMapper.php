@@ -7,6 +7,7 @@ use AppBundle\Entity\Summoner;
 use Doctrine\ORM\EntityManagerInterface;
 use RiotAPI\Definitions\Region;
 use RiotAPI\RiotAPI;
+use DataDragonAPI\DataDragonAPI;
 use Symfony\Component\Form\Tests\Extension\Core\DataTransformer\DateTimeToLocalizedStringTransformerTest;
 
 /**
@@ -61,6 +62,8 @@ class SummonerMapper
             $summoner->setLevel($data->summonerLevel);
             $summoner->setAccountId($data->accountId);
             $summoner->setProfilIconId($data->profileIconId);
+            // to show profilIcon:  http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/{{{{$summoner->getProfilIconId()}}}}}.png
+            // to show champion image:  http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/{{{{$champion->getName()}}}}.png
             $summoner->setRevisionDate(new \DateTime(date('d-M-y H:m', $data->revisionDate/1000)));
         }
 

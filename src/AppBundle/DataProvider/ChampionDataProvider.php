@@ -6,17 +6,11 @@ use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
 use AppBundle\Entity\Champion;
 use AppBundle\Mapper\ChampionMapper;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
 
 final class ChampionDataProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
 {
-    /**
-     * @var $requestStack
-     */
-    private $requestStack;
-
     /**
      * @var ChampionMapper
      */
@@ -27,9 +21,8 @@ final class ChampionDataProvider implements CollectionDataProviderInterface, Res
      */
     private $em;
 
-    public function __construct(RequestStack $requestStack, ChampionMapper $mapper, EntityManagerInterface $em)
+    public function __construct( ChampionMapper $mapper, EntityManagerInterface $em)
     {
-        $this->requestStack = $requestStack;
         $this->mapper = $mapper;
         $this->em = $em;
     }
