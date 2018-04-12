@@ -49,7 +49,6 @@ class SummonerMapper
         }
         $this->api->setTemporaryRegion($region);
 
-
         $data = $this->api->getSummonerByName($name);
         $summonerId = $data->id;
 
