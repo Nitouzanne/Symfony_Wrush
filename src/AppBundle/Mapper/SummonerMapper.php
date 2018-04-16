@@ -44,16 +44,19 @@ class SummonerMapper
      */
     public function getPlayerData($name,$region = null)
     {
+        //verify region of player
         if (null === $region) {
             $region = Region::EUROPE_WEST;
         }
         $this->api->setTemporaryRegion($region);
 
+        //retrieve Data with name
         $data = $this->api->getSummonerByName($name);
         $summonerId = $data->id;
 
         $service = $this->em->getRepository(Summoner::class);
         $summoner = $service->find($data->id);
+        //création de l'objet Summoner
         if ($summoner == null){
             $summoner = new Summoner();
             $summoner->setId($data->id);
@@ -63,7 +66,7 @@ class SummonerMapper
             $summoner->setProfilIconId($data->profileIconId);
             // to show profilIcon:  http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/{{{{$summoner->getProfilIconId()}}}}}.png
             // to show champion image:  http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/{{{{$champion->getName()}}}}.png
-            $summoner->setRevisionDate(new \DateTime(date('d-M-y H:m', $data->revisionDate/1000)));
+            $summoner->setRevisionDate(new \DateTime(date('d-M-y H:m', $data->revisionDate/1000), new \DateTimeZone('Europe/Paris')));
         }
 
         //$summoner->setLeaguePoints($dataLeague->leaguePoints);
